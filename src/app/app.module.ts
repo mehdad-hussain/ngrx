@@ -4,11 +4,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule, HeaderComponent, FooterComponent } from '@shared';
+import { AdminModule } from '@admin';
+import { HomeModule } from '@home';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule,
+    HomeModule,
+    AdminModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
