@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from '@admin';
 import { HomeModule } from '@home';
+import { TodoEffects } from './store/todos/todo.effects';
+import { todoReducer } from './store/todos/todo.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,8 +23,8 @@ import { HomeModule } from '@home';
     AdminModule,
 
     // step 1: StoreModule.forRoot(reducers),
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ todoS: todoReducer }, {}),
+    EffectsModule.forRoot([TodoEffects]),
     //step 2: Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
