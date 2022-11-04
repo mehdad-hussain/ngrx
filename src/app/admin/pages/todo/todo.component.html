@@ -8,13 +8,10 @@
     </button>
 
     <ul lines="none">
-      <li
-        (click)="removeTodo(todo)"
-        button
-        *ngFor="let todo of allTodoS$ | async"
-      >
+      <li button *ngFor="let todo of allTodoS$ | async">
         <!-- <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon> -->
-        <label> {{ todo.content }} </label>
+        <label (click)="removeTodo(todo)"> {{ todo.title }} </label>
+        <p>{{ todo.completed ? "Completed" : "Not Complete" }}</p>
       </li>
     </ul>
   </div>

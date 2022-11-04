@@ -2,16 +2,16 @@ import { createReducer, on } from '@ngrx/store';
 
 // prettier-ignore
 import { addTodo, loadTodo, removeTodo, toggleTodo, editTodo, loadTodoSuccess, loadTodoFailure } from './todo.action';
-import { Todo } from '@core';
+import { ITodo } from '@core';
 
 export interface TodoState {
-  todo: Todo[];
+  todo: ITodo[];
   loading: boolean;
   error: string;
   status: 'pending' | 'loading' | 'failed' | 'success';
 }
 
-export const initialState: TodoState = {
+export const initialTodoState: TodoState = {
   todo: [],
   loading: false,
   error: '',
@@ -19,13 +19,13 @@ export const initialState: TodoState = {
 };
 
 export const todoReducer = createReducer(
-  initialState,
-  on(addTodo, (state, { content }) => {
+  initialTodoState,
+  on(addTodo, (state, { title }) => {
     return {
       ...state,
       todo: [
         ...state.todo,
-        { id: Date.now().toString(), content, completed: false },
+        { id: Date.now().toString(), title, completed: false },
       ],
     };
   }),
@@ -79,14 +79,14 @@ export const todoReducer = createReducer(
     };
   }),
 
-  on(editTodo, (state, { id, content }) => {
+  on(editTodo, (state, { id, title }) => {
     return {
       ...state,
       todo: state.todo.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
-            content,
+            title,
           };
         }
         return todo;

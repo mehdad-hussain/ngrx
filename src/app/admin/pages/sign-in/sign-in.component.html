@@ -1,0 +1,111 @@
+<div class="card-body">
+  <div class="mb-5 text-center">
+    <h3 class="signin-text">Sign In</h3>
+    <!-- <p>Please sign in to continue to admin Portal.</p> -->
+  </div>
+  <form
+    [formGroup]="signInForm"
+    autocomplete="doNotAutoComplete"
+    (ngSubmit)="signIn()"
+  >
+    <div class="form-group position-relative has-icon-left">
+      <label for="mobile astericreq normal-text">Mobile</label>
+      <div class="position-relative">
+        <input
+          type="text"
+          class="form-control"
+          autocomplete="doNotAutoComplete"
+          id="mobile"
+          formControlName="mobile"
+          placeholder="+88....."
+          [ngClass]="{
+              'is-invalid': submitted && (signInForm.controls['mobile'].errors?.['required'] || signInForm.controls['mobile'].errors?.['minlength'])
+            }"
+        />
+        <div class="form-control-icon">
+          <i data-feather="user"></i>
+        </div>
+      </div>
+      <span
+        class="text-danger"
+        *ngIf="submitted && signInForm.controls['mobile'].errors?.['required']"
+      >
+        Please enter mobile number.
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="submitted && signInForm.controls['mobile'].errors?.['minlength']"
+      >
+        Mobile number must be at least 11 characters long
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="submitted && signInForm.controls['mobile'].errors?.['maxlength']"
+      >
+        Mobile number must be max 14 characters long
+      </span>
+    </div>
+    <div class="form-group position-relative has-icon-left">
+      <div class="clearfix">
+        <label for="password astericreq normal-text">Password</label>
+        <!-- <a href="auth-forgot-password.html" class="float-end">
+                              <small>Forgot password?</small>
+                          </a> -->
+      </div>
+      <div class="position-relative">
+        <input
+          type="password"
+          class="form-control"
+          autocomplete="doNotAutoComplete"
+          id="password"
+          formControlName="password"
+          [ngClass]="{
+              'is-invalid': submitted && (signInForm.controls['password'].errors?.['required'] || signInForm.controls['password'].errors?.['minlength'])
+            }"
+        />
+        <div class="form-control-icon">
+          <i data-feather="lock"></i>
+        </div>
+      </div>
+      <span
+        class="text-danger"
+        *ngIf="submitted && signInForm.controls['password'].errors?.['required']"
+      >
+        Please enter password.
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="submitted && signInForm.controls['password'].errors?.['minlength']"
+      >
+        Password must be at least 6 characters long</span
+      >
+    </div>
+
+    <!-- <div class="clearfix my-4 form-check">
+      <div class="checkbox float-start">
+        <input
+          type="checkbox"
+          id="checkbox1"
+          class="form-check-input"
+          formControlName="remember"
+        />
+        <label for="checkbox1">Remember me</label>
+      </div>
+      <div class="float-end">
+         <a href="auth-register.html">Don"t have an account?</a>
+      </div>
+    </div> -->
+    <div>
+      <div class="clearfix">
+        <button class="px-4 py-2 my-2 border border-black" type="submit">
+          Sign in
+        </button>
+      </div>
+    </div>
+  </form>
+  <!-- <div class="float-start">
+      <button (click)="forgetPass()" class="text-black forgot-pass">Forget Password?</button>
+    </div> -->
+</div>
+
+{{ user$ | async | json }}

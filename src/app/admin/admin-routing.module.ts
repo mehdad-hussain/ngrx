@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 
-import { DashboardComponent, UsersComponent, TodosComponent } from './pages';
+import {
+  DashboardComponent,
+  UsersComponent,
+  TodoComponent,
+  SignInComponent,
+} from './pages';
 
 const routes: Routes = [
   {
@@ -11,7 +16,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'todos', component: TodosComponent },
+      { path: 'todo', component: TodoComponent },
+      { path: 'sign-in', component: SignInComponent },
     ],
   },
 ];

@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Todo } from '@core';
+import { ITodo } from '@core';
 
 export const addTodo = createAction(
   '[Todo] Add Todo',
-  props<{ content: string }>()
+  props<{ title: string }>()
 );
 
 export const removeTodo = createAction(
@@ -18,14 +18,14 @@ export const toggleTodo = createAction(
 
 export const editTodo = createAction(
   '[Todo] Edit Todo',
-  props<{ id: string; content: string }>()
+  props<{ id: string; title: string }>()
 );
 
 export const loadTodo = createAction('[Todo] Load Todo');
 
 export const loadTodoSuccess = createAction(
   '[Todo] Load Todo Success',
-  props<{ todo: Todo[] }>()
+  props<{ todo: ITodo[] }>()
 );
 
 export const loadTodoFailure = createAction(

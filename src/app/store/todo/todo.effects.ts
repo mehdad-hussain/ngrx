@@ -4,10 +4,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 // prettier-ignore
-import { addTodo, loadTodo, loadTodoFailure, loadTodoSuccess, removeTodo, } from './todo.action';
-import { AppState } from '../app.state';
-import { selectAllTodo } from './todo.selector';
-import { Todo, TodoService } from '@core';
+import { AppState,addTodo, loadTodo, loadTodoFailure, loadTodoSuccess, removeTodo, selectAllTodo } from '@store';
+import { ITodo, TodoService } from '@core';
 
 @Injectable()
 export class TodoEffects {
@@ -25,7 +23,7 @@ export class TodoEffects {
         // Call the getTodos method, convert it to an observable
         from(this.todoService.getTodo()).pipe(
           // Take the returned value and return a new success action containing the todos
-          map((todo: Todo[]) => loadTodoSuccess({ todo })),
+          map((todo: ITodo[]) => loadTodoSuccess({ todo })),
           // Or... if it errors return a new failure action containing the error
           catchError((error) => of(loadTodoFailure({ error })))
         )

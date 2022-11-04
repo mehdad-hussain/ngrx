@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo.model';
+import { ITodo } from '@core';
 
 @Injectable({
   providedIn: 'root',
@@ -7,30 +7,30 @@ import { Todo } from '../models/todo.model';
 export class TodoService {
   constructor() {}
 
-  async getTodo(): Promise<Todo[]> {
+  async getTodo(): Promise<ITodo[]> {
     return [
       {
         id: '1',
-        content: 'Buy Milk',
+        title: 'Buy Milk',
         completed: false,
       },
       {
         id: '2',
-        content: 'Buy Bread',
+        title: 'Buy Bread',
         completed: false,
       },
       {
         id: '3',
-        content: 'Buy Eggs',
+        title: 'Buy Eggs',
         completed: false,
       },
     ];
   }
 
-  async saveTodo(todo: Todo[]) {
+  async saveTodo(todo: ITodo[]) {
     return {
       id: Date.now().toString(),
-      content: todo,
+      title: todo,
       completed: false,
     };
   }
