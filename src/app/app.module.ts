@@ -11,8 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from '@admin';
 import { HomeModule } from '@home';
-import { TodoEffects } from './store/todos/todo.effects';
-import { todoReducer } from './store/todos/todo.reducer';
+import { TodoEffects } from './store/todo/todo.effects';
+import { todoReducer } from './store/todo/todo.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { todoReducer } from './store/todos/todo.reducer';
     AdminModule,
 
     // step 1: StoreModule.forRoot(reducers),
-    StoreModule.forRoot({ todoS: todoReducer }, {}),
+    StoreModule.forRoot({ todo: todoReducer }, {}),
     EffectsModule.forRoot([TodoEffects]),
     //step 2: Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({

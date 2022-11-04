@@ -1,17 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
-import { Todo } from '../todo.model';
+
 // prettier-ignore
 import { addTodo, loadTodo, removeTodo, toggleTodo, editTodo, loadTodoSuccess, loadTodoFailure } from './todo.action';
+import { Todo } from '@core';
 
 export interface TodoState {
-  todoS: Todo[];
+  todo: Todo[];
   loading: boolean;
   error: string;
   status: 'pending' | 'loading' | 'failed' | 'success';
 }
 
 export const initialState: TodoState = {
-  todoS: [],
+  todo: [],
   loading: false,
   error: '',
   status: 'pending',
@@ -22,8 +23,8 @@ export const todoReducer = createReducer(
   on(addTodo, (state, { content }) => {
     return {
       ...state,
-      todoS: [
-        ...state.todoS,
+      todo: [
+        ...state.todo,
         { id: Date.now().toString(), content, completed: false },
       ],
     };
@@ -32,7 +33,7 @@ export const todoReducer = createReducer(
   on(removeTodo, (state, { id }) => {
     return {
       ...state,
-      todoS: state.todoS.filter((todo) => todo.id !== id),
+      todo: state.todo.filter((todo) => todo.id !== id),
     };
   }),
 
@@ -47,7 +48,7 @@ export const todoReducer = createReducer(
   on(loadTodoSuccess, (state, { todo }) => {
     return {
       ...state,
-      todoS: todo,
+      todo: todo,
       loading: false,
       error: '',
       status: 'success',
@@ -66,7 +67,7 @@ export const todoReducer = createReducer(
   on(toggleTodo, (state, { id }) => {
     return {
       ...state,
-      todoS: state.todoS.map((todo) => {
+      todo: state.todo.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
@@ -81,7 +82,7 @@ export const todoReducer = createReducer(
   on(editTodo, (state, { id, content }) => {
     return {
       ...state,
-      todoS: state.todoS.map((todo) => {
+      todo: state.todo.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,

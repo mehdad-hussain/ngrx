@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'app/store/app.state';
 
-import { Todo } from '../../../store/todo.model';
+import { Todo } from '../../../core/models/todo.model';
 // prettier-ignore
-import { addTodo, removeTodo, loadTodo, } from '../../../store/todos/todo.action';
-import { selectAllTodoS } from '../../../store/todos/todo.selector';
+import { addTodo, removeTodo, loadTodo, } from '../../../store/todo/todo.action';
+import { selectAllTodo } from '../../../store/todo/todo.selector';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent implements OnInit {
-  public allTodoS$ = this.store.select(selectAllTodoS);
+  public allTodoS$ = this.store.select(selectAllTodo);
   public todo = '';
 
   constructor(private store: Store<AppState>) {}

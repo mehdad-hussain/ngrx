@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+
 // prettier-ignore
 import { addTodo, loadTodo, loadTodoFailure, loadTodoSuccess, removeTodo, } from './todo.action';
-import { TodoService } from './todo.service';
-import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { AppState } from '../app.state';
-import { Todo } from '../todo.model';
-import { selectAllTodoS } from './todo.selector';
+import { selectAllTodo } from './todo.selector';
+import { Todo, TodoService } from '@core';
 
 @Injectable()
 export class TodoEffects {
@@ -38,8 +38,8 @@ export class TodoEffects {
     () =>
       this.actions$.pipe(
         ofType(addTodo, removeTodo),
-        withLatestFrom(this.store.select(selectAllTodoS)),
-        switchMap(([action, todoS]) => from(this.todoService.saveTodo(todoS)))
+        withLatestFrom(this.store.select(selectAllTodo)),
+        switchMap(([action, todo]) => from(this.todoService.saveTodo(todo)))
       ),
     // Most effects dispatch another action, but this one is just a "fire and forget" effect
     { dispatch: false }
