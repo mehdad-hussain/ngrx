@@ -110,5 +110,15 @@
 
 <p>
   User:
-  {{ user$ | async }}
+  {{ user$ | async | json }}
+</p>
+
+<p>
+  Error:
+  {{ error$ | async }}
+</p>
+
+<p>
+  status:
+  {{ status$ | async }}
 </p>

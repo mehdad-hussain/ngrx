@@ -8,3 +8,7 @@ export const selectAllTodo = createSelector(
   selectTodo,
   (state: TodoState) => state.todo
 );
+export const currentStatus = createSelector(
+  selectTodo,
+  (state: TodoState) => state.status
+);

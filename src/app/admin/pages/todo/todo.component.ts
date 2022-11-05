@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 // prettier-ignore
-import { selectAllTodo,addTodo, removeTodo, loadTodo,AppState } from '@store';
+import { selectAllTodo,addTodo, removeTodo, loadTodo,AppState, currentStatus } from '@store';
 import { ITodo } from '@core';
 
 @Component({
@@ -12,6 +12,7 @@ import { ITodo } from '@core';
 })
 export class TodoComponent implements OnInit {
   public allTodoS$ = this.store.select(selectAllTodo);
+  public status$ = this.store.select(currentStatus);
   public todo = '';
 
   constructor(private store: Store<AppState>) {}

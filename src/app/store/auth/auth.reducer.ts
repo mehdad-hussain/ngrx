@@ -28,7 +28,6 @@ export const authReducer = createReducer(
   }),
   on(loginSuccess, (state, { user }) => {
     return {
-      ...state,
       user: user,
       loading: false,
       error: '',
@@ -37,7 +36,7 @@ export const authReducer = createReducer(
   }),
   on(loginFailed, (state, { error }) => {
     return {
-      ...state,
+      user: null,
       loading: false,
       error: error,
       status: 'failed',
@@ -45,8 +44,10 @@ export const authReducer = createReducer(
   }),
   on(logout, (state) => {
     return {
-      ...state,
       user: null,
+      loading: false,
+      error: '',
+      status: 'pending',
     };
   })
 );

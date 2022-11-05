@@ -2,10 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@core';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { currentUser, login, logout, AppState } from '@store';
+import {
+  currentUser,
+  login,
+  logout,
+  AppState,
+  error,
+  signInStatus,
+} from '@store';
 
 @Component({
   selector: 'app-sign-in',
@@ -36,6 +43,9 @@ export class SignInComponent implements OnInit {
   currentData: any;
 
   user$ = this.store.select(currentUser);
+  status$ = this.store.select(signInStatus);
+
+  error$ = this.store.select(error);
 
   constructor(
     private _fb: FormBuilder,
@@ -65,6 +75,7 @@ export class SignInComponent implements OnInit {
         console.log('user', user);
       }
     });
+    console.log(this.user$);
   }
 
   signIn() {
