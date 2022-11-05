@@ -15,6 +15,8 @@ import { HomeModule } from '@home';
 import { BaseUrlInterceptor, ResponseInterceptor } from '@core';
 import { TodoEffects, todoReducer, AuthEffects, authReducer } from '@store';
 
+import { counterReducer, COUNTER_STATE_NAME } from '@store';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -25,6 +27,8 @@ import { TodoEffects, todoReducer, AuthEffects, authReducer } from '@store';
     // step 1: StoreModule.forRoot(reducers),
     StoreModule.forRoot({ todo: todoReducer, auth: authReducer }, {}),
     EffectsModule.forRoot([TodoEffects, AuthEffects]),
+    StoreModule.forFeature(COUNTER_STATE_NAME, counterReducer),
+
     //step 2: Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

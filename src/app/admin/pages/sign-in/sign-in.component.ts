@@ -5,7 +5,7 @@ import { AuthService } from '@core';
 import { first } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { selectUser, login, logout, AppState } from '@store';
+import { currentUser, login, logout, AppState } from '@store';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,7 +35,7 @@ export class SignInComponent implements OnInit {
 
   currentData: any;
 
-  public user$ = this.store.select(selectUser);
+  user$ = this.store.select(currentUser);
 
   constructor(
     private _fb: FormBuilder,
@@ -58,6 +58,12 @@ export class SignInComponent implements OnInit {
         ],
       ],
       remember: [],
+    });
+
+    this.user$.subscribe((user) => {
+      if (user) {
+        console.log('user', user);
+      }
     });
   }
 

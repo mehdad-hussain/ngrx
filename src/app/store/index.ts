@@ -9,3 +9,8 @@ export * from './todo/todo.action';
 export * from './todo/todo.reducer';
 export * from './todo/todo.selector';
 export * from './todo/todo.effects';
+
+export * from './counter/counter.action';
+export * from './counter/counter.reducer';
+export * from './counter/counter.selector';
+// export * from './counter/counter.effects';

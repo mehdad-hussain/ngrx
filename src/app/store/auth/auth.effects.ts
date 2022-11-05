@@ -4,14 +4,8 @@ import { of, catchError, map, switchMap, exhaustMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AuthService, IUser } from '@core';
-import {
-  login,
-  loginSuccess,
-  loginFailed,
-  logout,
-  selectUser,
-  AppState,
-} from '@store';
+// prettier-ignore
+import { login, loginSuccess, loginFailed, logout, selectUser, AppState, } from '@store';
 
 @Injectable()
 export class AuthEffects {
