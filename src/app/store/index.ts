@@ -14,3 +14,6 @@ export * from './counter/counter.action';
 export * from './counter/counter.reducer';
 export * from './counter/counter.selector';
 // export * from './counter/counter.effects';
+
+export * from './employee/employee.service';
+export * from './employee/employee-data-service';

@@ -4,6 +4,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+// prettier-ignore
+import { DefaultDataServiceConfig, EntityDataModule, EntityDataService, } from '@ngrx/data';
 
 // import: local files
 import { environment } from '@environments';
@@ -16,6 +18,13 @@ import { BaseUrlInterceptor, ResponseInterceptor } from '@core';
 import { TodoEffects, todoReducer, AuthEffects, authReducer } from '@store';
 
 import { counterReducer, COUNTER_STATE_NAME } from '@store';
+import { entityConfig } from './app-entity-metadata';
+import { EmployeeDataService } from '@store';
+
+const customDataServiceConfig: DefaultDataServiceConfig = {
+  root: 'admin/',
+  timeout: 3000, // request timeout
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +37,7 @@ import { counterReducer, COUNTER_STATE_NAME } from '@store';
     StoreModule.forRoot({ todo: todoReducer, auth: authReducer }, {}),
     EffectsModule.forRoot([TodoEffects, AuthEffects]),
     StoreModule.forFeature(COUNTER_STATE_NAME, counterReducer),
+    EntityDataModule.forRoot(entityConfig),
 
     //step 2: Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
@@ -42,7 +52,16 @@ import { counterReducer, COUNTER_STATE_NAME } from '@store';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    // { provide: DefaultDataServiceConfig, useValue: customDataServiceConfig },
+    EmployeeDataService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    entityService: EntityDataService,
+    employeeDataService: EmployeeDataService
+  ) {
+    entityService.registerService('Employee', employeeDataService);
+  }
+}
