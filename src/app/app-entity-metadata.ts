@@ -2,8 +2,10 @@ import { EntityMetadataMap } from '@ngrx/data';
 
 export const appEntityMetadata: EntityMetadataMap = {
   Employee: {
-    selectId: (employee) => employee.EmployeeId,
+    selectId: (employee) =>
+      employee.EmployeeId ? employee.EmployeeId : 'error',
     /* optional settings */
+
     // filterFn: nameFilter,
     // sortComparer: sortByName,
   },

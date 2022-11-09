@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // prettier-ignore
 import { EntityCollectionServiceBase, EntityCollectionServiceElementsFactory, } from '@ngrx/data';
 
-import { IEmployee, IList } from '@core';
+import { IEmployee } from '@core';
 
 @Injectable()
 export class EmployeeService extends EntityCollectionServiceBase<IEmployee> {

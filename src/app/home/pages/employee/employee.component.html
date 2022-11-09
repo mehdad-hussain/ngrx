@@ -1,2 +1,26 @@
 <p>employee works!</p>
 <app-counter></app-counter>
+
+<!-- make a employee table -->
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Gender</th>
+  </tr>
+
+  <ng-container *ngIf="loading$ | async; else employeeList">
+    Loading...
+  </ng-container>
+
+  <ng-template #employeeList>
+    <tr *ngFor="let employee of employeeList$ | async">
+      <td>{{ employee.EmployeeId }}</td>
+      <td>{{ employee.FullName }}</td>
+      <td>{{ employee.Gender }}</td>
+    </tr>
+  </ng-template>
+</table>
+<ng-container *ngIf="error !== ''">
+  <p>{{ error }}</p>
+</ng-container>

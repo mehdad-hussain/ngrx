@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { EmployeeService } from '@store';
-import { EmployeeService as ES } from '@core';
 
 @Component({
   selector: 'app-employee',
@@ -10,27 +10,26 @@ import { EmployeeService as ES } from '@core';
 })
 export class EmployeeComponent implements OnInit {
   employeeList$ = this.employeeService.entities$;
-  loaded$ = this.employeeService.loaded$;
   loading$ = this.employeeService.loading$;
+  payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
+
+  error: string = '';
 
   constructor(
     private employeeService: EmployeeService,
-    private employeeS: ES
+    private store: Store<any>
   ) {}
 
   ngOnInit(): void {
-    // this.getEmployeeList();
-
     console.log(this.employeeList$.subscribe((res) => console.log(res)));
 
-    console.log(this.loaded$.subscribe((res) => console.log(res)));
+    console.log(
+      this.payload$.subscribe((res) => {
+        console.log('payload', res?.error);
+        this.error = res?.error;
+      })
+    );
 
     this.employeeService.getAll();
   }
-
-  // getEmployeeList() {
-  //   this.employeeS.getEmployeeList(10, 0, '', {}).subscribe((res) => {
-  //     console.log(res);
-  //   });
-  // }
 }
