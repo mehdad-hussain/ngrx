@@ -52,16 +52,19 @@ import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationB
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    FontAwesomeModule,
 
-    // export: local files components
+    // export: components
     HeaderComponent,
     FooterComponent,
     CounterComponent,
+    TableContainerComponent,
+    PaginationBarComponent,
 
-    // export: local files directives
+    // export: directives
     ClickOutsideDirective,
 
-    // export: local files pipes
+    // export: pipes
     SplitPipe,
   ],
 })
