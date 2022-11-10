@@ -27,6 +27,7 @@ export * from './array/some/some.pipe';
 export * from './generic/length/length.pipe';
 export * from './generic/reverse/reverse.pipe';
 export * from './generic/type-of/type-of.pipe';
+export * from './generic/join-object-values/join-object-values.pipe';
 
 // export * from './array/reduce/reduce.pipe';
 // export * from './array/sort/sort.pipe';
