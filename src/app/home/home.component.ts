@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
   // templateUrl: './admin.component.html',
   template: `<app-header></app-header>
 
-    <router-outlet></router-outlet>
+    <div class="min-h-[80vh]">
+      <router-outlet></router-outlet>
+    </div>
 
     <app-footer></app-footer> `,
   // styleUrls: ['./admin.component.scss'],

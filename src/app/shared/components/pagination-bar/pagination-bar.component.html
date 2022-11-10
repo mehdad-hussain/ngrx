@@ -4,6 +4,7 @@
   <!-- section: hidden in big screen, visible in < 640px -->
   <div class="flex justify-between flex-1 sm:hidden">
     <a
+      (click)="setPage(pager.currentPage - 1, $event)"
       href=""
       class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
     >
@@ -11,6 +12,7 @@
     </a>
     <a
       href=""
+      (click)="setPage(pager.currentPage + 1, $event)"
       class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
     >
       Next

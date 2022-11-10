@@ -2,6 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   safelist: ["bg-blue-400", "bg-green-400", "bg-red-400", "text-red-900"],
+  darkMode: "class",
   theme: {
     extend: {
       container: {

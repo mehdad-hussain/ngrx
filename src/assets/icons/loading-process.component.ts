@@ -16,8 +16,8 @@ import { Component, Input, OnInit } from '@angular/core';
       style="enable-background:new 0 0 399.389 399.389;"
       xml:space="preserve"
       [class]="classes"
-      [attr.fill]="fill"
-      [attr.stroke]="stroke"
+      [attr.fill]="fill ? fill : 'currentColor'"
+      [attr.stroke]="stroke ? stroke : 'none'"
       [attr.stroke-width]="strokeWidth"
     >
       <!-- color of attribute properties must be hex or rgb color as it's can't get color from css class -->

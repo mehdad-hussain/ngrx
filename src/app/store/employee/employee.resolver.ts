@@ -24,7 +24,9 @@ export class EmployeeResolver implements Resolve<boolean> {
         );
         payload$.subscribe((res) => {
           res?.error ? (error = res.error) : (error = null);
-          console.log('error', error);
+          if (error) {
+            console.log('error', error);
+          }
         });
         if (!loaded || error !== null) {
           this.employeeService.getAll();

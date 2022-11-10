@@ -37,7 +37,9 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.payload$.subscribe((res) => {
       res?.error ? (this.error = res.error) : (this.error = null);
-      console.log('error', this.error);
+      if (this.error) {
+        console.log('error', this.error);
+      }
     });
 
     // this.employeeService.getAll();

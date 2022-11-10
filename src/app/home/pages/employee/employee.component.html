@@ -1,12 +1,22 @@
-<p>employee works!</p>
 <!-- <app-counter></app-counter> -->
 
+<app-toggle-theme-btn btnClasses="float-right m-2"></app-toggle-theme-btn>
+
 <ng-container *ngIf="loading$ | async; else employeeList">
-  <fa-icon [icon]="faSpinner" [classes]="['w-4 h-4']"></fa-icon>
-  Loading...
+  <div
+    class="absolute inset-0 flex items-center justify-center min-h-screen space-x-4 bg-black/50"
+  >
+    <svg-loading-process
+      classes="w-8 h-8 animate-spin mx-auto text-blue-600"
+      strokeWidth=".5"
+      stroke="none"
+    ></svg-loading-process>
+    <h2 class="text-white">Loading...</h2>
+  </div>
 </ng-container>
 
 <ng-template #employeeList>
+  <p>employee works!</p>
   <app-table-container
     *ngIf="rows.length"
     [tableName]="tableName"
@@ -16,21 +26,14 @@
     [ListOfNotSortableColumns]="['address', 'company']"
   >
   </app-table-container>
+  <ng-container *ngIf="error !== ''">
+    <p>{{ error }}</p>
+  </ng-container>
+
+  <app-pagination-bar
+    *ngIf="rows.length"
+    [paginationId]="tableName"
+    [pageSize]="pageSize"
+    [maxPagesToDisplay]="maxPagesToDisplay"
+  ></app-pagination-bar>
 </ng-template>
-<ng-container *ngIf="error !== ''">
-  <p>{{ error }}</p>
-</ng-container>
-
-<app-pagination-bar
-  *ngIf="rows.length"
-  [paginationId]="tableName"
-  [pageSize]="pageSize"
-  [maxPagesToDisplay]="maxPagesToDisplay"
-></app-pagination-bar>
-
-<svg-loading-process
-  classes="w-8 h-8 animate-spin mx-auto !text-red-900"
-  strokeWidth=".5"
-  fill="#56E"
-></svg-loading-process>
-strokeColor="text-red-900" fill="text-red-900" -->

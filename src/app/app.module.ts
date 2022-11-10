@@ -34,7 +34,7 @@ const customDataServiceConfig: DefaultDataServiceConfig = {
     // step 1: StoreModule.forRoot(reducers),
     StoreModule.forRoot({ todo: todoReducer, auth: authReducer }, {}),
     EffectsModule.forRoot([TodoEffects, AuthEffects]),
-    StoreModule.forFeature(COUNTER_STATE_NAME, counterReducer),
+    // StoreModule.forFeature(COUNTER_STATE_NAME, counterReducer),
     EntityDataModule.forRoot(entityConfig),
 
     //step 2: Instrumentation must be imported after importing StoreModule (config is optional)

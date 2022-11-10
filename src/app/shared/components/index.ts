@@ -10,3 +10,4 @@ export * from './tab/tab.component';
 export * from './tabs-container/tabs-container.component';
 export * from './toast/toast.component';
 export * from './table-container/table-container.component';
+export * from './toggle-theme-btn/toggle-theme-btn.component';
