@@ -1,0 +1,44 @@
+<label class="checkbox-container">
+  <input
+    class="checkbox-input"
+    type="checkbox"
+    [ngModel]="checked"
+    (ngModelChange)="onModelChange($event)"
+  />
+  <div class="checkbox-border">
+    <div class="checkbox-filling" *ngIf="checked"></div>
+  </div>
+  <ng-content> </ng-content>
+</label>
+
+<!-- todo: add custom css -->
+
+<!-- <h1>Usage with NgModel</h1>
+
+<app-custom-checkbox [(ngModel)]="inputOne">
+  Checkbox 1
+</app-custom-checkbox>
+<h2>Variable in app.component</h2>
+{{inputOne}}
+
+<hr />
+
+<h1>Usage with Form Control</h1>
+<app-custom-checkbox [formControl]="inputTwo">
+  Checkbox 2
+</app-custom-checkbox>
+
+<h2>Variable in app.component</h2>
+{{inputTwo.value}}, control touched: {{inputTwo.touched}}
+
+<hr />
+
+<h1>Usage in Form</h1>
+
+<form [formGroup]="form">
+  <app-custom-checkbox formControlName="myFormControl">
+    Checkbox 3
+  </app-custom-checkbox>
+</form>
+<h2>Variable in app.component</h2>
+{{form.get('myFormControl').value}} -->

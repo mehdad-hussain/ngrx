@@ -1,0 +1,65 @@
+<!-- <section class="grid grid-cols-3 gap-2">
+  <div
+    class="text-yellow-100 bg-slate-500"
+    *ngFor="let item of [1, 2, 3, 4, 5, 6]"
+  >
+    {{ item }}
+  </div>
+
+  <button class="text-white btn" type="button">Previous</button>
+  <button class="text-white btn" type="button">Next</button>
+</section> -->
+
+<div class="container bg-sky-300">
+  <div
+    class="wrapperClasses"
+    [ngClass]="containerHeight !== '' ? containerHeight : 'h-64'"
+  >
+    <div
+      #mainContainer
+      (resizeObserver)="getSlideWidth($event)"
+      class="mainContainerClasses"
+      [ngStyle]="{}"
+      [ngClass]="
+        spaceBetween === '10px'
+          ? 'space-x-2'
+          : spaceBetween === '12px'
+          ? 'space-x-3'
+          : spaceBetween === '16px'
+          ? 'space-x-4'
+          : spaceBetween === '20px'
+          ? 'space-x-5'
+          : 'space-x-6'
+      "
+    >
+      <!-- section: slide for loop  -->
+      <div
+        class="slideClasses"
+        [ngClass]="containerHeight !== '' ? containerHeight : 'h-64'"
+        *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+      >
+        <div class="text">{{ item }}</div>
+      </div>
+    </div>
+
+    <!-- section: slider buttons -->
+    <div class="btnGrpClasses">
+      <button
+        #prevBtn
+        type="button"
+        class="text-white btn"
+        (click)="prevOnclick()"
+      >
+        Previous
+      </button>
+      <button
+        #nextBtn
+        type="button"
+        class="text-white btn"
+        (click)="nextOnclick()"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>

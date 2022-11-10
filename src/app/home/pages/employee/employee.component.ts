@@ -13,7 +13,7 @@ export class EmployeeComponent implements OnInit {
   loading$ = this.employeeService.loading$;
   payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
 
-  error: string = '';
+  error: string | null = '';
 
   constructor(
     private employeeService: EmployeeService,
@@ -21,14 +21,10 @@ export class EmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.employeeList$.subscribe((res) => console.log(res)));
-
-    console.log(
-      this.payload$.subscribe((res) => {
-        console.log('payload', res?.error);
-        this.error = res?.error;
-      })
-    );
+    this.payload$.subscribe((res) => {
+      res?.error ? (this.error = res.error) : (this.error = null);
+      console.log('error', this.error);
+    });
 
     this.employeeService.getAll();
   }

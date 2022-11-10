@@ -9,6 +9,8 @@ import { HeaderComponent, FooterComponent,CounterComponent,CounterButtonsCompone
 import { ClickOutsideDirective } from './directives';
 // prettier-ignore
 import { SplitPipe, SumPipe, TypeOfPipe, ReversePipe, LengthPipe, SentenceCasePipe, SlugifyPipe, SomePipe, SqrtPipe, PowPipe, PctPipe, MinPipe, MaxPipe, MapPipe, LastPipe, JoinPipe, FirstPipe, FillPipe, EveryPipe, CopyWithinPipe, CombinePipe, CharAtPipe, CamelCasePipe, ConcatPipe, InterpolatePipe, PascalCasePipe, RepeatPipe, TrimPipe, TrimLeftPipe, TrimRightPipe, TruncatePipe, AvgPipe, AbsPipe, CeilPipe, FloorPipe, RoundPipe } from './pipes';
+// prettier-ignore
+import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationBarComponent, RadioBtnComponent, SearchBarComponent, SelectComponent, SliderComponent, TabComponent, TableContainerComponent, TabsContainerComponent, ToastComponent, } from './components';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,19 @@ import { SplitPipe, SumPipe, TypeOfPipe, ReversePipe, LengthPipe, SentenceCasePi
     CounterButtonsComponent,
     CounterOutputComponent,
     CustomCounterInputComponent,
+    ModalContainerComponent,
+    TabsContainerComponent,
+    TabComponent,
+    InputComponent,
+    ToastComponent,
+    TableContainerComponent,
+    SelectComponent,
+    RadioBtnComponent,
+    PaginationBarComponent,
+    SearchBarComponent,
+    SliderComponent,
+    CheckboxComponent,
+
     // pipes
     SplitPipe,
     // directives

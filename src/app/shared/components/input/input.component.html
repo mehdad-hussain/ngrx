@@ -1,0 +1,89 @@
+<!-- section: label and required icon -->
+<div class="flex relative mb-2">
+  <label
+    [class]="labelClasses ? labelClasses : 'inline-block mb-2'"
+    [for]="label"
+    >{{ label }}</label
+  >
+  <span *ngIf="isRequired" class="text-red-500 text-xs">
+    <fa-icon
+      [icon]="faStar"
+      [classes]="['w-1.5 h-1.5 absolute top-1 mx-[1.5px]']"
+    ></fa-icon
+  ></span>
+</div>
+<!-- section: input filed -->
+<div class="relative">
+  <input
+    #input
+    [formControl]="control"
+    [type]="inputType"
+    [id]="label"
+    [placeholder]="placeHolder"
+    [class]="
+      inputClasses
+        ? inputClasses
+        : 'block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400'
+    "
+  />
+
+  <!-- section: password visibility toggle icon -->
+  <ng-container *ngIf="inputType === 'password'" class="">
+    <ng-template #outlet let-icon="icon">
+      <fa-icon
+        [icon]="icon"
+        [classes]="['w-4 h-4 absolute top-1/2 right-3 -translate-y-1/2']"
+        (click)="togglePassword()"
+      ></fa-icon>
+    </ng-template>
+
+    <ng-template
+      [ngTemplateOutlet]="outlet"
+      [ngTemplateOutletContext]="{
+        icon: showPassword ? faEye : faEyeSlash
+      }"
+    ></ng-template>
+  </ng-container>
+</div>
+
+<!-- section: error message -->
+<ng-container *ngIf="control.touched && control.dirty">
+  <div class="child:text-red-400">
+    <small *ngIf="control.errors?.['required']">
+      {{ label }} is required
+    </small>
+    <small *ngIf="control.errors?.['minlength']">
+      You inserted
+      {{ control.errors?.['minlength'].actualLength }}
+      characters,but minimum is
+      {{ control.errors?.['minlength'].requiredLength }}
+    </small>
+    <small *ngIf="control.errors?.['email']">Email is not valid</small>
+    <small *ngIf="control.errors?.['min']">
+      You inserted
+      {{ control.errors?.['min'].actual}}
+      , but minimum age granted is
+      {{ control.errors?.['min'].min}}
+    </small>
+    <small *ngIf="control.errors?.['max']">
+      You inserted
+      {{ control.errors?.['max'].actual}}
+      , but maximum age granted is
+      {{ control.errors?.['max'].max}}
+      ></small
+    >
+    <small *ngIf="control.errors?.['message']">
+      {{ control.errors?.['message'] }}
+    </small>
+    <small *ngIf="control.errors?.['pattern']">
+      Enter a valid phone number e.g.+8801620430659
+    </small>
+    <small *ngIf="control.errors?.['missMatch']">Password do not match</small>
+    <small *ngIf="control.errors?.['emailTaken']">
+      Email is already taken, please choose another one.
+    </small>
+  </div>
+</ng-container>
+
+<!-- idea: ng-container: content is always rendered -->
+<!-- idea: ng-template: content must be conditionally rendered, if we don't provide structural directives it will be hidden -->

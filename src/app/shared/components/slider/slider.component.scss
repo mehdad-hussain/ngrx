@@ -1,0 +1,24 @@
+.wrapperClasses {
+  @apply relative bg-purple-600 overflow-hidden;
+}
+// flex justify-center
+
+.mainContainerClasses {
+  @apply absolute w-[100%];
+}
+// grid grid-cols-5 gap-x-2 justify-items-center;
+.slideClasses {
+  @apply relative inline-block  bg-gray-200;
+}
+// transition-all delay-500
+
+.text {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+}
+
+.btnGrpClasses {
+  @apply absolute bottom-2 left-0 w-full flex justify-center;
+  button {
+    @apply bg-blue-500 px-3 py-1 rounded mx-1 opacity-75;
+  }
+}

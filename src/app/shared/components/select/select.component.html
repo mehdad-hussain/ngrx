@@ -1,0 +1,117 @@
+<div
+  class="flex relative mb-2.5"
+  [ngClass]="labelContainerClasses ? labelContainerClasses : ''"
+>
+  <label class="">{{ label }}</label>
+  <span *ngIf="isRequired" class="text-red-500 text-xs">
+    <fa-icon
+      [icon]="faStar"
+      [classes]="['w-1.5 h-1.5 absolute top-1 mx-[1.5px]']"
+    ></fa-icon
+  ></span>
+</div>
+<!-- section: search input box -->
+<button
+  class="dropdown-button"
+  [ngClass]="[
+    dropdownOpen ? '!rounded-t-sm outline outline-1' : 'rounded-sm',
+    buttonClasses ? buttonClasses : ''
+  ]"
+  aria-haspopup="listbox"
+  aria-labelledby="dropdown-label"
+  (click)="openDropdown()"
+  (clickOutside)="dropdownOpen = false"
+>
+  <!-- section: input filed for search  -->
+  <input
+    #dropdownSearch
+    *ngIf="searchTypeServer"
+    class="dropdown-input"
+    [type]="inputType"
+    [ngClass]="inputClasses ? inputClasses : ''"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    (input)="onInput($event)"
+  />
+
+  <input
+    #dropdownSearch
+    *ngIf="!searchTypeServer"
+    class="dropdown-input"
+    [ngClass]="inputClasses ? inputClasses : ''"
+    [placeholder]="dropdownOpen ? 'Type to Search' : placeholder"
+    [formControl]="control"
+    (input)="onInput($event)"
+  />
+
+  <!-- section: font awesome icon -->
+  <fa-icon
+    [icon]="faAngleDown"
+    [classes]="[
+      'w-4 h-4 inset-y-1/2 -translate-y-1/2 right-2 absolute text-black transition-all',
+      dropdownOpen ? 'rotate-180' : 'rotate-0'
+    ]"
+  ></fa-icon>
+
+  <!-- section: dropdown  -->
+  <ul
+    #dropdownListContainer
+    id="dropdownListContainer"
+    class="dropdown-list-container scrollbar"
+    [ngClass]="[
+      listContainerClasses ? listContainerClasses : '',
+      dropdownOpen ? 'block' : 'hidden'
+    ]"
+    role="listbox"
+    aria-expanded="false"
+  >
+    <!-- section: initial msg, loading msg, not found msg -->
+    <ng-template #outlet let-message="message" let-variable="variable">
+      <p class="px-2 py-1.5 text-gray-400">{{ message }} {{ variable }}</p>
+    </ng-template>
+
+    <ng-template
+      *ngIf="showSearchPlaceholder && searchTypeServer"
+      [ngTemplateOutlet]="outlet"
+      [ngTemplateOutletContext]="{ message: 'Type to Search' }"
+    ></ng-template>
+
+    <ng-template
+      *ngIf="loading"
+      [ngTemplateOutlet]="outlet"
+      [ngTemplateOutletContext]="{
+        message: 'Fetching data for',
+        variable: [query]
+      }"
+    ></ng-template>
+
+    <ng-template
+      *ngIf="noDataFound && !loading"
+      [ngTemplateOutlet]="outlet"
+      [ngTemplateOutletContext]="{
+        message: 'No data found for',
+        variable: query + '...'
+      }"
+    ></ng-template>
+
+    <!-- section: list options -->
+    <li
+      *ngFor="let option of originalOptions"
+      tabindex="0"
+      role="option"
+      [class]="listClasses ? listClasses : 'dropdown-list'"
+      [ngClass]="{ 'bg-gray-400': currentValue === option }"
+      [innerHTML]="option[bindValue]"
+      (click)="select(option)"
+    ></li>
+  </ul>
+</button>
+
+<!-- section: error message -->
+<ng-container *ngIf="control.touched && control.dirty">
+  <div class="mt-1 child:text-red-400">
+    <small *ngIf="control.errors?.['required']">
+      {{ label }} is required
+    </small>
+  </div>
+</ng-container>

@@ -1,0 +1,30 @@
+<div
+  [class]="
+    inputContainerClasses ? inputContainerClasses : 'inputContainerClassDefault'
+  "
+>
+  <div
+    [class]="
+      inputWrapperClasses ? inputWrapperClasses : 'inputWrapperClassDefault'
+    "
+  >
+    <input
+      type="text"
+      [id]="inputId"
+      [class]="inputBoxClasses ? inputBoxClasses : 'inputBoxClassDefault'"
+      [placeholder]="placeholderText"
+      (input)="onInput($event)"
+    />
+    <button
+      type="button"
+      [class]="searchIconClasses ? searchIconClasses : 'searchIconClassDefault'"
+      [ngClass]="{ flex: searchIcon, hidden: !searchIcon }"
+    >
+      <fa-icon
+        [icon]="faSearch"
+        [classes]="[' w-4 h-4 text-gray-700 ']"
+        ngClass="{{ '' }}"
+      ></fa-icon>
+    </button>
+  </div>
+</div>

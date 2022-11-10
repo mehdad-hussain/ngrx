@@ -1,0 +1,15 @@
+.inputContainerClassDefault {
+  @apply flex items-center justify-center text-black bg-white;
+}
+
+.inputWrapperClassDefault {
+  @apply flex overflow-hidden border rounded;
+}
+
+.inputBoxClassDefault {
+  @apply px-5 py-2 rounded-sm placeholder:text-sky-700;
+}
+
+.searchIconClassDefault {
+  @apply flex items-center justify-center px-4 border-gray-700 focus:border;
+}

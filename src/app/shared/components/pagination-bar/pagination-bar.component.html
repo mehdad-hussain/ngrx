@@ -1,0 +1,134 @@
+<div
+  class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
+>
+  <!-- section: hidden in big screen, visible in < 640px -->
+  <div class="flex justify-between flex-1 sm:hidden">
+    <a
+      href=""
+      class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+    >
+      Previous
+    </a>
+    <a
+      href=""
+      class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+    >
+      Next
+    </a>
+  </div>
+
+  <!-- section: hidden in small screen, visible in > 640px -->
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <!-- section: page status bar -->
+    <div>
+      <p class="text-sm text-gray-700">
+        Showing <span class="font-medium">{{ pager.startIndex + 1 }}</span> to
+        <span class="font-medium">{{ pager.endIndex + 1 }}</span> of
+        <span class="font-medium">{{ pager.totalItems }}</span> results
+      </p>
+    </div>
+
+    <!-- section: pagination bar -->
+    <div>
+      <nav
+        class="inline-flex -space-x-px rounded-md shadow-sm isolate"
+        aria-label="Pagination"
+      >
+        <ul class="flex pagination">
+          <!-- section: first page button-->
+          <li class="" [ngClass]="pager.currentPage === 1 ? 'disabled' : ''">
+            <a
+              href=""
+              (click)="setPage(1, $event)"
+              class="page-btn rounded-l-md"
+              >First</a
+            >
+          </li>
+          <!-- section: previous btn -->
+          <li
+            class="disabled"
+            [ngClass]="pager.currentPage === 1 ? 'disabled' : ''"
+          >
+            <a
+              href=""
+              class="page-btn"
+              (click)="setPage(pager.currentPage - 1, $event)"
+            >
+              <span class="sr-only">Previous</span>
+              <fa-icon
+                [icon]="faChevronLeft"
+                [classes]="[' w-4 h-4']"
+                ngClass="{{ '' }}"
+              ></fa-icon>
+            </a>
+          </li>
+          <!-- section: left dot button-->
+          <span
+            *ngIf="
+              halfwayPoint + 1 < pager.currentPage &&
+              maxPagesToDisplay !== pager.totalPages
+            "
+            class="dot-btn"
+          >
+            . . .
+          </span>
+          <!-- section: dynamic page numbers btn -->
+          <ng-container *ngFor="let page of pager.pages">
+            <li class="">
+              <a
+                href=""
+                (click)="setPage(page, $event)"
+                class=""
+                [ngClass]="
+                  pager.currentPage === page ? 'page-active' : 'page-btn'
+                "
+                >{{ page }}</a
+              >
+            </li>
+          </ng-container>
+          <!-- section:  right dot button-->
+          <span
+            *ngIf="
+              pager.currentPage - halfwayPoint - rightDot <
+                pager.totalPages - maxPagesToDisplay &&
+              pager.totalPages !== maxPagesToDisplay
+            "
+            class="dot-btn"
+          >
+            . . .
+          </span>
+          <!-- section: next btn -->
+          <li
+            class=""
+            [ngClass]="pager.currentPage === pager.totalPages ? 'disabled' : ''"
+          >
+            <a
+              href=""
+              class="page-btn"
+              (click)="setPage(pager.currentPage + 1, $event)"
+            >
+              <span class="sr-only">Next</span>
+              <fa-icon
+                [icon]="faChevronRight"
+                [classes]="['w-4 h-4']"
+                ngClass="{{ '' }}"
+              ></fa-icon>
+            </a>
+          </li>
+
+          <!-- section: last page button-->
+          <li
+            class=""
+            [ngClass]="pager.currentPage === pager.totalPages ? 'disabled' : ''"
+          >
+            <a
+              (click)="setPage(pager.totalPages, $event)"
+              class="page-btn rounded-r-md"
+              >Last</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
