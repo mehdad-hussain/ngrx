@@ -26,6 +26,6 @@ export class EmployeeComponent implements OnInit {
       console.log('error', this.error);
     });
 
-    this.employeeService.getAll();
+    // this.employeeService.getAll();
   }
 }

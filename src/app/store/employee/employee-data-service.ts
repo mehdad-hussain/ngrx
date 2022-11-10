@@ -22,37 +22,6 @@ export class EmployeeDataService extends DefaultDataService<IEmployee> {
   ) {
     super('', http, httpUrlGenerator);
     logger.log('Created custom Employee EntityDataService');
-
-    // actions$
-    //   .pipe(
-    //     ofEntityOp(),
-    //     filter(
-    //       (ea: EntityAction) =>
-    //         ea.payload.entityOp.endsWith(OP_SUCCESS) ||
-    //         ea.payload.entityOp.endsWith(OP_ERROR)
-    //     )
-    //   )
-    //   // this service never dies so no need to unsubscribe
-    //   .subscribe((action) =>
-    //     console.log(
-    //       `${action.payload.entityName} action`,
-    //       action.payload.entityOp
-    //     )
-    //   );
-
-    // actions$
-    //   .pipe(
-    //     ofType(
-    //       EntityCacheAction.SAVE_ENTITIES_SUCCESS,
-    //       EntityCacheAction.SAVE_ENTITIES_ERROR
-    //     )
-    //   )
-    //   .subscribe((action: any) =>
-    //     console.log(
-    //       `${action.type} - url: ${action.payload.url}`,
-    //       'SaveEntities'
-    //     )
-    //   );
   }
 
   override getAll(): Observable<IEmployee[] | any> {
@@ -73,17 +42,16 @@ export class EmployeeDataService extends DefaultDataService<IEmployee> {
           } else {
             employees.push(res.Message);
             this.store.dispatch({
-              type: '[Employee] @ngrx/data/query-all/failure',
+              type: '[Employee] @ngrx/data/query-all/error',
               payload: res.Message,
             });
           }
-
           return employees;
+          // idea: here it is producing success all the time because it is not getting the error from the server as post response
         }),
 
         catchError((error) =>
           of(
-            console.log(error.message),
             alert(
               'The server is not responding. Please try again later. If the problem persists, please contact the administrator.'
             ),

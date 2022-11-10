@@ -3,13 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CustomerComponent, EmployeeComponent } from './pages';
 import { HomeComponent } from './home.component';
+import { EmployeeResolver } from '@store';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
     children: [
-      { path: 'employee', component: EmployeeComponent },
+      {
+        path: 'employee',
+        component: EmployeeComponent,
+        resolve: { employees: EmployeeResolver },
+      },
       { path: 'customer', component: CustomerComponent },
     ],
   },

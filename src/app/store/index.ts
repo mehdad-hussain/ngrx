@@ -17,3 +17,4 @@ export * from './counter/counter.selector';
 
 export * from './employee/employee.service';
 export * from './employee/employee-data-service';
+export * from './employee/employee.resolver';

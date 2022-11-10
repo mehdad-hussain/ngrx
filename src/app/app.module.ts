@@ -15,11 +15,9 @@ import { AppComponent } from './app.component';
 import { AdminModule } from '@admin';
 import { HomeModule } from '@home';
 import { BaseUrlInterceptor, ResponseInterceptor } from '@core';
-import { TodoEffects, todoReducer, AuthEffects, authReducer } from '@store';
-
-import { counterReducer, COUNTER_STATE_NAME } from '@store';
+// prettier-ignore
+import { TodoEffects, todoReducer, AuthEffects, authReducer,EmployeeDataService ,counterReducer, COUNTER_STATE_NAME, EmployeeService  } from '@store';
 import { entityConfig } from './app-entity-metadata';
-import { EmployeeDataService } from '@store';
 
 const customDataServiceConfig: DefaultDataServiceConfig = {
   root: 'admin/',
@@ -53,7 +51,6 @@ const customDataServiceConfig: DefaultDataServiceConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
     // { provide: DefaultDataServiceConfig, useValue: customDataServiceConfig },
-    EmployeeDataService,
   ],
   bootstrap: [AppComponent],
 })
