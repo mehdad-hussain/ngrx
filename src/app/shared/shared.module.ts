@@ -6,12 +6,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // import: local imports
 // prettier-ignore
-import { HeaderComponent, FooterComponent,CounterComponent,CounterButtonsComponent,CounterOutputComponent,CustomCounterInputComponent } from './layout';
+import { HeaderComponent, FooterComponent,CounterComponent,CounterButtonsComponent,CounterOutputComponent,CustomCounterInputComponent,SideNavbarComponent,ToggleThemeBtnComponent,ListPageLayoutComponent } from './layout';
 import { ClickOutsideDirective } from './directives';
 // prettier-ignore
 import { SplitPipe, SumPipe, TypeOfPipe, ReversePipe, LengthPipe, SentenceCasePipe, SlugifyPipe, SomePipe, SqrtPipe, PowPipe, PctPipe, MinPipe, MaxPipe, MapPipe, LastPipe, JoinPipe, FirstPipe, FillPipe, EveryPipe, CopyWithinPipe, CombinePipe, CharAtPipe, CamelCasePipe, ConcatPipe, InterpolatePipe, PascalCasePipe, RepeatPipe, TrimPipe, TrimLeftPipe, TrimRightPipe, TruncatePipe, AvgPipe, AbsPipe, CeilPipe, FloorPipe, RoundPipe, JoinObjectValuesPipe } from './pipes';
 // prettier-ignore
-import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationBarComponent, RadioBtnComponent, SearchBarComponent, SelectComponent, SliderComponent, TabComponent, TableContainerComponent, TabsContainerComponent, ToastComponent, ToggleThemeBtnComponent} from './components';
+import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationBarComponent, RadioBtnComponent, SearchBarComponent, SelectComponent, SliderComponent, TabComponent, TableContainerComponent, TabsContainerComponent, ToastComponent  } from './components';
 
 @NgModule({
   declarations: [
@@ -34,13 +34,15 @@ import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationB
     SearchBarComponent,
     SliderComponent,
     CheckboxComponent,
+    SideNavbarComponent,
+    ToggleThemeBtnComponent,
+    ListPageLayoutComponent,
 
     // pipes
     SplitPipe,
     JoinObjectValuesPipe,
     // directives
     ClickOutsideDirective,
-    ToggleThemeBtnComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +64,8 @@ import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationB
     TableContainerComponent,
     ToggleThemeBtnComponent,
     PaginationBarComponent,
+    SideNavbarComponent,
+    ListPageLayoutComponent,
 
     // export: directives
     ClickOutsideDirective,
