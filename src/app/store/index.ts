@@ -18,3 +18,8 @@ export * from './counter/counter.selector';
 export * from './employee/employee.service';
 export * from './employee/employee-data-service';
 export * from './employee/employee.resolver';
+
+export * from './employee/employee.action';
+export * from './employee/employee.reducer';
+export * from './employee/employee.selector';
+export * from './employee/employee.effects';

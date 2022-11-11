@@ -18,7 +18,6 @@ export const appEntityMetadata: EntityMetadataMap = {
     // filterFn: nameAndSayingFilter,
     entityDispatcherOptions: { optimisticAdd: true, optimisticUpdate: true },
   },
-  Theme: {},
 };
 
 export const pluralNames = { Employee: 'Employees', Villain: 'Villains' };

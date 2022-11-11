@@ -60,7 +60,7 @@
             </ng-container>
             <!-- section: ACTION HEADER for ACTION COLUMN -->
             <th
-              class="px-6 py-3 text-xs font-semibold text-left uppercase align-middle border-solid bg-sky-800 whitespace-nowrap text-sky-300"
+              class="px-6 py-3 text-xs font-bold text-left text-black uppercase align-middle border-solid bg-gray-700/30 whitespace-nowrap"
               *ngIf="actions && actions.length"
             >
               ACTIONS
@@ -68,7 +68,7 @@
           </tr>
         </thead>
         <!-- section: TABLE BODY -->
-        <tbody class="even-child:bg-gray-500/30">
+        <tbody class="even-child:bg-gray-300/50">
           <!-- <ng-content select="[tbody]"></ng-content> -->
           <ng-container *ngFor="let row of sortedRows">
             <tr
@@ -82,8 +82,8 @@
                 "
               >
                 <td>
-                  {{ cell.value }}
-                  <!-- {{ cell.value | joinObjectValues }} -->
+                  <!-- {{ cell.value }} -->
+                  {{ cell.value | joinObjectValues }}
                 </td>
               </ng-container>
               <!-- section: ACTIONS BUTTONS -->

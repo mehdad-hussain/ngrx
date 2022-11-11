@@ -14,7 +14,7 @@ $border-color: #ddd;
 }
 
 .dropdown-list-container {
-  @apply absolute bottom-[-.1px] bg-white w-full inset-x-0 z-[100] overflow-auto translate-y-full shadow h-fit max-h-44 text-left outline outline-1 outline-zinc-500 rounded-b-sm;
+  @apply absolute bottom-[-.1px] bg-white w-full z-30 overflow-auto translate-y-full shadow h-fit max-h-44 text-left outline outline-1 outline-zinc-500 rounded-b-sm;
   // divide-y divide-gray-100
 }
 
@@ -23,20 +23,20 @@ $border-color: #ddd;
 }
 
 // section: not using now
-.dropdown-collection {
-  @apply relative w-64 bg-transparent space-y-4 inline-block;
-}
-.dropdown-value {
-  @apply px-3 py-2 font-semibold text-black whitespace-nowrap;
-}
+// .dropdown-collection {
+//   @apply relative w-64 bg-transparent space-y-4 inline-block;
+// }
+// .dropdown-value {
+//   @apply px-3 py-2 font-semibold text-black whitespace-nowrap;
+// }
 
-.dropdown-title {
-  @apply px-3 py-2;
-}
+// .dropdown-title {
+//   @apply px-3 py-2;
+// }
 
-.dropdown-label {
-  @apply py-2 basis-3/4 text-gray-400 text-xs;
-}
+// .dropdown-label {
+//   @apply py-2 basis-3/4 text-gray-400 text-xs;
+// }
 
 /* Scrollbar Styling */
 .scrollbar::-webkit-scrollbar {

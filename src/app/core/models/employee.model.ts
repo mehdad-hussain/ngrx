@@ -32,6 +32,7 @@ export interface IEmployee {
 
   // section: official information
   BranchId: string;
+  BranchName: string;
   ReferredBy: string;
   UserId: string;
   UserPassword: string;

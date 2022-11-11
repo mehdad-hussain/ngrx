@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import { EmployeeService } from '@store';
+import {
+  AppState,
+  EmployeeService,
+  loadedEmployees,
+  loadEmployees,
+} from '@store';
 import { PaginationService, TableService } from '@core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +20,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class EmployeeComponent implements OnInit {
   employeeList$ = this.employeeService.entities$;
   loading$ = this.employeeService.loading$;
-  payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
+  // payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
+  employees$ = this.store.select(loadedEmployees);
 
   error: string | null = '';
 
@@ -23,7 +29,7 @@ export class EmployeeComponent implements OnInit {
   rows: any[] = [];
   columns: string[] = [];
   actions = ['Edit', 'View', 'Delete'];
-  pageSize: number = 3;
+  pageSize: number = 4;
   maxPagesToDisplay: number = 10;
 
   faSpinner = faSpinner;
@@ -45,15 +51,15 @@ export class EmployeeComponent implements OnInit {
       placeHolder: 'Select user',
       dropdownOptions: [
         {
-          id: 1,
+          id: null,
           label: 'All',
         },
         {
-          id: 2,
+          id: 1,
           label: 'Active',
         },
         {
-          id: 3,
+          id: 0,
           label: 'Inactive',
         },
       ],
@@ -67,34 +73,61 @@ export class EmployeeComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private store: Store<any>,
+    private store: Store<AppState>,
     public table: TableService,
     private pagination: PaginationService
   ) {}
 
   ngOnInit(): void {
-    this.payload$.subscribe((res) => {
-      res?.error ? (this.error = res.error) : (this.error = null);
-      if (this.error) {
-        console.log('error', this.error);
-      }
-    });
+    // this.payload$.subscribe((res) => {
+    //   res?.error ? (this.error = res.error) : (this.error = null);
+    //   if (this.error) {
+    //     console.log('error', this.error);
+    //   }
+    // });
 
     // this.employeeService.getAll();
     this.employeeList$.subscribe((res) => {
+      console.log('res', res);
       if (res.length) {
-        this.columns = Object.keys(res[0]);
-        this.rows = res;
-        let data;
+        // prettier-ignore
+        this.columns = [ 'employee id', 'name', 'designation', 'service location', 'contact number', 'gender', 'branch name', 'permissions', ];
+        // prettier-ignore
+        res.map((item) => { this.rows.push([ item.EmployeeId, item.FullName, item.Designation, item.ServiceLocation, item.ContactNumber, item.Gender, item.BranchName, item.Permissions ]); });
+        let data: any[];
+
         if (this.pageSize > res.length) {
           this.pageSize = res.length;
           data = res;
         } else {
           data = res.slice(0, this.pageSize);
         }
+
+        let tempData = [...data];
+        console.log('tempData', tempData);
+
+        data = [];
+
+        tempData.map((item) => {
+          data.push([
+            item.EmployeeId,
+            item.FullName,
+            item.Designation,
+            item.ServiceLocation,
+            item.ContactNumber,
+            item.Gender,
+            item.BranchName,
+            item.Permissions,
+          ]);
+        });
+
         this.pagination.setPaginationData(this.tableName, this.rows);
         this.table.setTable(this.tableName, data, this.columns, this.actions);
       }
+    });
+
+    this.employees$.subscribe((res) => {
+      console.log('employees', res);
     });
   }
 
@@ -103,6 +136,18 @@ export class EmployeeComponent implements OnInit {
   }
 
   filter() {
-    console.log(this.productForm.value);
+    this.store.dispatch(
+      loadEmployees({
+        pageSize: this.pageSize,
+        lastKey: 0,
+        filter: '',
+        whereObj: {
+          IsActive: this.productForm.value.options === 'Active' ? 1 : 0,
+        },
+        cols: null,
+        searchVal: this.productForm.value.qry,
+        searchCols: ['FullName', 'ContactNumber'],
+      })
+    );
   }
 }

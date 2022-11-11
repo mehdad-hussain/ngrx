@@ -16,7 +16,7 @@ import { AdminModule } from '@admin';
 import { HomeModule } from '@home';
 import { BaseUrlInterceptor, ResponseInterceptor } from '@core';
 // prettier-ignore
-import { TodoEffects, todoReducer, AuthEffects, authReducer,EmployeeDataService ,counterReducer, COUNTER_STATE_NAME, EmployeeService  } from '@store';
+import { TodoEffects, todoReducer, AuthEffects, authReducer,EmployeeDataService ,counterReducer, COUNTER_STATE_NAME, EmployeeEffects, employeeReducer  } from '@store';
 import { entityConfig } from './app-entity-metadata';
 
 const customDataServiceConfig: DefaultDataServiceConfig = {
@@ -32,8 +32,11 @@ const customDataServiceConfig: DefaultDataServiceConfig = {
     HttpClientModule,
 
     // step 1: StoreModule.forRoot(reducers),
-    StoreModule.forRoot({ todo: todoReducer, auth: authReducer }, {}),
-    EffectsModule.forRoot([TodoEffects, AuthEffects]),
+    StoreModule.forRoot(
+      { todo: todoReducer, auth: authReducer, employee: employeeReducer },
+      {}
+    ),
+    EffectsModule.forRoot([TodoEffects, AuthEffects, EmployeeEffects]),
     // StoreModule.forFeature(COUNTER_STATE_NAME, counterReducer),
     EntityDataModule.forRoot(entityConfig),
 
