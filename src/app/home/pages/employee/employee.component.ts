@@ -22,7 +22,7 @@ export class EmployeeComponent implements OnInit {
   rows: any[] = [];
   columns: string[] = [];
   actions = ['Edit', 'View', 'Delete'];
-  pageSize: number = 1;
+  pageSize: number = 3;
   maxPagesToDisplay: number = 10;
 
   faSpinner = faSpinner;
