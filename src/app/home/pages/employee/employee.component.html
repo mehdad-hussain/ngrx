@@ -1,37 +1,94 @@
 <!-- <app-counter></app-counter> -->
 
-<ng-container *ngIf="loading$ | async; else employeeList">
-  <div
-    class="absolute inset-0 flex items-center justify-center min-h-screen space-x-4 bg-black/50"
-  >
-    <svg-loading-process
-      classes="w-8 h-8 animate-spin mx-auto text-blue-600"
-      strokeWidth=".5"
-      stroke="none"
-    ></svg-loading-process>
-    <h2 class="text-white">Loading...</h2>
-  </div>
-</ng-container>
+<app-list-page-layout>
+  <!-- section: filter content -->
 
-<ng-template #employeeList>
-  <p>employee works!</p>
-  <app-table-container
-    *ngIf="rows.length"
-    [tableName]="tableName"
-    [tableContainerClass]="'!bg-gray-400'"
-    [tableHeaderClass]="'!border-none'"
-    [tableBodyClass]="'text-black'"
-    [ListOfNotSortableColumns]="['address', 'company']"
-  >
-  </app-table-container>
-  <ng-container *ngIf="error !== ''">
-    <p>{{ error }}</p>
+  <ng-container filterContent>
+    <form [formGroup]="productForm">
+      <div class="grid grid-cols-4 gap-6 m-2 mb- first-child:col-span-2">
+        <div *ngFor="let item of productDataArray">
+          <ng-container
+            *ngIf="!item.dropdownOptions && item.label !== 'Checkbox'"
+          >
+            <app-input
+              [label]="item.label"
+              [placeHolder]="item.placeHolder"
+              [control]="item.control"
+              [inputType]="item.inputType"
+              labelClasses="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              inputClasses="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-300"
+            ></app-input>
+          </ng-container>
+
+          <ng-container *ngIf="item.dropdownOptions">
+            <app-select
+              label="Type"
+              bindValue="label"
+              placeholder="Select Type"
+              [options]="item.dropdownOptions"
+              [control]="item.control"
+              [hideSelected]="true"
+              [searchArrObj]="true"
+              buttonClasses="!w-full outline-blue-500 border border-gray-300 !rounded-lg"
+              inputClasses="!p-2.5 bg-gray-50"
+            ></app-select>
+            <!-- (currentSelectedOption)="dropdownValueChanged($event)" -->
+          </ng-container>
+
+          <ng-container *ngIf="item.label === 'Checkbox'">
+            <app-checkbox [control]="item.control">{{
+              item.control.value ? "Active" : "Inactive"
+            }}</app-checkbox>
+          </ng-container>
+        </div>
+        <button
+          type="submit"
+          class="self-end block w-full h-10 px-3 py-1 text-white transition bg-indigo-400 rounded disabled:opacity-50 hover:enabled:bg-indigo-500"
+          (click)="filter()"
+        >
+          <!-- [disabled]="registerFrom.invalid || inSubmission" -->
+          Submit
+        </button>
+      </div>
+    </form>
   </ng-container>
 
-  <app-pagination-bar
-    *ngIf="rows.length"
-    [paginationId]="tableName"
-    [pageSize]="pageSize"
-    [maxPagesToDisplay]="maxPagesToDisplay"
-  ></app-pagination-bar>
-</ng-template>
+  <!-- section: table content -->
+
+  <ng-container tableContent>
+    <ng-container *ngIf="loading$ | async; else employeeList">
+      <div
+        class="absolute inset-0 flex items-center justify-center min-h-screen space-x-4 bg-black/50"
+      >
+        <svg-loading-process
+          classes="w-8 h-8 animate-spin mx-auto text-blue-600"
+          strokeWidth=".5"
+          stroke="none"
+        ></svg-loading-process>
+        <h2 class="text-white">Loading...</h2>
+      </div>
+    </ng-container>
+
+    <ng-template #employeeList>
+      <app-table-container
+        *ngIf="rows.length"
+        [tableName]="tableName"
+        [tableContainerClass]="'!bg-white mt-2'"
+        [tableHeaderClass]="'!border-none !bg-gray-700/30 !text-black'"
+        [tableBodyClass]="'text-black'"
+        [ListOfNotSortableColumns]="['address', 'company']"
+      >
+      </app-table-container>
+      <ng-container *ngIf="error !== ''">
+        <p>{{ error }}</p>
+      </ng-container>
+
+      <app-pagination-bar
+        *ngIf="rows.length"
+        [paginationId]="tableName"
+        [pageSize]="pageSize"
+        [maxPagesToDisplay]="maxPagesToDisplay"
+      ></app-pagination-bar>
+    </ng-template>
+  </ng-container>
+</app-list-page-layout>

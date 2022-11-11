@@ -1,9 +1,9 @@
 <div
-  class="flex relative mb-2.5"
+  class="flex mb-2.5"
   [ngClass]="labelContainerClasses ? labelContainerClasses : ''"
 >
   <label class="">{{ label }}</label>
-  <span *ngIf="isRequired" class="text-red-500 text-xs">
+  <span *ngIf="isRequired" class="text-xs text-red-500">
     <fa-icon
       [icon]="faStar"
       [classes]="['w-1.5 h-1.5 absolute top-1 mx-[1.5px]']"
@@ -56,7 +56,7 @@
   <!-- section: dropdown  -->
   <ul
     #dropdownListContainer
-    id="dropdownListContainer"
+    id="dropdownListContainer !z-[100]"
     class="dropdown-list-container scrollbar"
     [ngClass]="[
       listContainerClasses ? listContainerClasses : '',

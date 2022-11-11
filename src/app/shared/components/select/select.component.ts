@@ -54,6 +54,7 @@ export class SelectComponent implements OnInit {
     name: 'Item ' + (i + 1),
     anotherProperty: `Just another value for testing display ${i + 1}`,
   }));
+  @Input() showRequiredMsg: boolean = false;
 
   // section: font awesome icons
   faAngleDown = faAngleDown;
@@ -117,7 +118,9 @@ export class SelectComponent implements OnInit {
       this.subscriptions.push(subscription);
     }
 
-    this.isRequired = this.control.hasValidator(Validators.required);
+    if (this.showRequiredMsg) {
+      this.isRequired = this.control.hasValidator(Validators.required);
+    }
   }
 
   ngOnDestroy() {

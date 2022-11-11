@@ -4,6 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { EmployeeService } from '@store';
 import { PaginationService, TableService } from '@core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
@@ -26,6 +27,43 @@ export class EmployeeComponent implements OnInit {
   maxPagesToDisplay: number = 10;
 
   faSpinner = faSpinner;
+
+  qry = new FormControl('', []);
+  options = new FormControl('', []);
+
+  productDataArray = [
+    {
+      label: 'Search',
+      control: this.qry,
+      inputType: 'text',
+      placeHolder: 'Search by name, contact',
+    },
+    {
+      label: 'Status',
+      control: this.options,
+      inputType: 'text',
+      placeHolder: 'Select user',
+      dropdownOptions: [
+        {
+          id: 1,
+          label: 'All',
+        },
+        {
+          id: 2,
+          label: 'Active',
+        },
+        {
+          id: 3,
+          label: 'Inactive',
+        },
+      ],
+    },
+  ];
+
+  productForm = new FormGroup({
+    qry: this.qry,
+    options: this.options,
+  });
 
   constructor(
     private employeeService: EmployeeService,
@@ -58,5 +96,13 @@ export class EmployeeComponent implements OnInit {
         this.table.setTable(this.tableName, data, this.columns, this.actions);
       }
     });
+  }
+
+  dropdownValueChanged(event: any) {
+    console.log(event);
+  }
+
+  filter() {
+    console.log(this.productForm.value);
   }
 }

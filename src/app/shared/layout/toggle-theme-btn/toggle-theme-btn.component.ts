@@ -15,7 +15,7 @@ export class ToggleThemeBtnComponent implements OnInit {
 
   constructor() {
     this.userTheme = this.selectedTheme ? this.selectedTheme : '';
-    console.log('this.userTheme', this.userTheme);
+    // console.log('this.userTheme', this.userTheme);
 
     this.checkCurrentTheme();
   }
@@ -35,8 +35,8 @@ export class ToggleThemeBtnComponent implements OnInit {
   }
 
   checkCurrentTheme() {
-    console.log(this.systemTheme);
-    console.log(this.userTheme);
+    // console.log(this.systemTheme);
+    // console.log(this.userTheme);
     if (
       this.userTheme === 'dark' ||
       (this.userTheme === '' && this.systemTheme)

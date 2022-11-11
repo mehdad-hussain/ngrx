@@ -2,24 +2,22 @@
 <div class="flex h-[86vh]">
   <app-side-navbar sidebarClasses=""></app-side-navbar>
 
-  <section class="w-[90%] h-[90%] mx-auto">
+  <section class="h-[90%] mx-auto w-[90%] !mr-auto space-y-8 my-2">
     <!-- section: filter card section -->
-    <div class="w-full h-40 bg-gradient-to-l from-cyan-500 to-blue-300">
-      <div class="w-11/12 py-4 mx-auto">
-        <div
-          class="px-4 py-10 bg-white bg-opacity-50 border border-gray-200 shadow-sm sm:rounded-lg sm:p-16 bg-clip-padding"
-          style="backdrop-filter: blur(20px)"
-        >
-          <div class="mx-auto">
-            <ng-content select="filterContent"></ng-content>
-          </div>
+    <div class="w-full rounded-lg bg-gradient-to-l from-cyan-500 to-blue-300">
+      <div
+        class="h-full bg-white bg-opacity-50 border border-gray-200 shadow-sm sm:rounded-lg bg-clip-padding"
+        style="backdrop-filter: blur(20px)"
+      >
+        <div class="mx-auto">
+          <ng-content select="[filterContent]"></ng-content>
         </div>
       </div>
     </div>
 
     <!-- section: table -->
-    <div class="w-full my-4 bg-red-600">
-      <ng-content select="tableContent"></ng-content>
+    <div>
+      <ng-content select="[tableContent]"></ng-content>
     </div>
   </section>
 </div>

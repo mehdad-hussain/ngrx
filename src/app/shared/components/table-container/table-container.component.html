@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<div class="">
   <div
     class="relative flex flex-col w-full min-w-0 mb-6 break-words rounded shadow-lg bg-sky-900"
     [ngClass]="classNames(tableContainerClass)"
@@ -15,7 +15,7 @@
     </div>
 
     <!-- section: Main Table -->
-    <div class="block w-full overflow-x-auto">
+    <div class="block w-full overflow-x-auto min-h-[28rem]">
       <table
         class="items-center w-full bg-transparent border-collapse table-auto"
         [ngClass]="classNames(tableBodyClass)"
@@ -25,14 +25,14 @@
           <tr>
             <ng-container *ngFor="let column of sortedColumns">
               <th
-                class="px-6 py-3 align-middle border border-l-0 border-r-0 border-solid bg-sky-800"
+                class="px-6 py-3 align-middle border border-l-0 border-r-0 border-solid"
                 [ngClass]="classNames(tableHeaderClass)"
               >
                 <button
                   [disabled]="!column.sortable"
                   (click)="onSortChange(column.name)"
                   type="button"
-                  class="flex items-center space-x-1 text-xs font-semibold text-left uppercase whitespace-nowrap text-sky-300 border-sky-700"
+                  class="flex items-center space-x-1 text-xs font-bold text-left uppercase whitespace-nowrap"
                 >
                   <p>{{ column.name }}</p>
                   <!-- section: SORTING ICONS -->
@@ -52,7 +52,7 @@
                         ? faArrowDownWideShort
                         : faArrowUpWideShort
                     "
-                    [classes]="[' w-3.5 h-3.5 text-white']"
+                    [classes]="[' w-3.5 h-3.5 text-blue-600']"
                     ngClass="{{ '' }}"
                   ></fa-icon>
                 </button>
@@ -68,11 +68,11 @@
           </tr>
         </thead>
         <!-- section: TABLE BODY -->
-        <tbody>
+        <tbody class="even-child:bg-gray-500/30">
           <!-- <ng-content select="[tbody]"></ng-content> -->
           <ng-container *ngFor="let row of sortedRows">
             <tr
-              class="border-b border-gray-500 child:truncate child:p-4 child:px-6 child:text-xs child:align-middle child:border-t-0 child:border-l-0 child:border-r-0 child:whitespace-nowrap"
+              class="border-b border-gray-500 child:truncate child:py-2.5 child:px-6 child:text-xs child:align-middle child:border-t-0 child:border-l-0 child:border-r-0 child:whitespace-nowrap"
             >
               <!-- section: TABLE DATA with NG FOR LOOP for every single row -->
               <ng-container

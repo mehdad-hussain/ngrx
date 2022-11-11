@@ -66,6 +66,10 @@ import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationB
     PaginationBarComponent,
     SideNavbarComponent,
     ListPageLayoutComponent,
+    SearchBarComponent,
+    InputComponent,
+    SelectComponent,
+    CheckboxComponent,
 
     // export: directives
     ClickOutsideDirective,
