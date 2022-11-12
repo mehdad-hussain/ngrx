@@ -17,6 +17,7 @@ export class TableContainerComponent implements OnInit {
   @Input() tableContainerClass: string = '';
   @Input() tableBodyClass: string = '';
   @Input() tableHeaderClass: string = '';
+  @Input() loading: boolean | null = false;
 
   // section: Optional Inputs
   // @Input() resizable!: Boolean;

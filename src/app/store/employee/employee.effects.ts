@@ -32,7 +32,7 @@ export class EmployeeEffects {
         ).pipe(
           map((res) =>
             res.Success
-              ? loadEmployeesSuccess({ employees: res.Data.employees })
+              ? loadEmployeesSuccess({ employees: res.Data })
               : loadEmployeesFailed({ error: res.Message })
           ),
           catchError((error) => of(loadEmployeesFailed({ error })))

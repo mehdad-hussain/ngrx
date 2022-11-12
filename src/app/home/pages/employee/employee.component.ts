@@ -136,14 +136,16 @@ export class EmployeeComponent implements OnInit {
   }
 
   filter() {
+    let whereObj: any = {};
+    if (this.productForm.value.options !== '') {
+      whereObj.IsActive = this.productForm.value.options === 'Active' ? 1 : 0;
+    }
     this.store.dispatch(
       loadEmployees({
         pageSize: this.pageSize,
         lastKey: 0,
         filter: '',
-        whereObj: {
-          IsActive: this.productForm.value.options === 'Active' ? 1 : 0,
-        },
+        whereObj: whereObj,
         cols: null,
         searchVal: this.productForm.value.qry,
         searchCols: ['FullName', 'ContactNumber'],
