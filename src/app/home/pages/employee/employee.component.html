@@ -58,7 +58,7 @@
   <ng-container tableContent>
     <ng-container *ngIf="loading$ | async; else employeeList">
       <div
-        class="absolute inset-0 flex items-center justify-center min-h-screen space-x-4 bg-black/50"
+        class="absolute h-[65vh] inset-0 flex items-center justify-center space-x-4 bg-black/50"
       >
         <svg-loading-process
           classes="w-8 h-8 animate-spin mx-auto text-blue-600"
@@ -69,20 +69,27 @@
       </div>
     </ng-container>
 
+    <!-- *ngIf="rows.length" -->
     <ng-template #employeeList>
       <app-table-container
-        *ngIf="rows.length"
         [tableName]="tableName"
         [tableContainerClass]="'!bg-white mt-2'"
         [tableHeaderClass]="'!border-none !bg-gray-700/30 !text-black'"
         [tableBodyClass]="'text-black'"
-        [ListOfNotSortableColumns]="['address', 'company']"
+        [ListOfNotSortableColumns]="['permissions']"
+        [customColumns]="customColumns"
       >
+        <!-- <ng-container customColumns> -->
+        <!-- <td *ngFor="let item of rows">permission icon</td>
+        </ng-container> -->
       </app-table-container>
+
+      <!-- section: error message -->
       <ng-container *ngIf="error !== ''">
         <p>{{ error }}</p>
       </ng-container>
 
+      <!-- section: pagination -->
       <app-pagination-bar
         *ngIf="rows.length"
         [paginationId]="tableName"

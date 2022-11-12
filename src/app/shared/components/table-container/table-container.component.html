@@ -42,7 +42,6 @@
                     *ngIf="column.sortable && column.sort === 'none'"
                     [icon]="faSort"
                     [classes]="[' w-3.5 h-3.5']"
-                    ngClass="{{ '' }}"
                   ></fa-icon>
                   <!-- section: sort icons -->
                   <fa-icon
@@ -53,7 +52,6 @@
                         : faArrowUpWideShort
                     "
                     [classes]="[' w-3.5 h-3.5 text-blue-600']"
-                    ngClass="{{ '' }}"
                   ></fa-icon>
                 </button>
               </th>
@@ -68,8 +66,7 @@
           </tr>
         </thead>
         <!-- section: TABLE BODY -->
-        <tbody class="even-child:bg-gray-300/50">
-          <!-- <ng-content select="[tbody]"></ng-content> -->
+        <tbody class="relative even-child:bg-gray-300/50">
           <ng-container *ngFor="let row of sortedRows">
             <tr
               class="border-b border-gray-500 child:truncate child:py-2.5 child:px-6 child:text-xs child:align-middle child:border-t-0 child:border-l-0 child:border-r-0 child:whitespace-nowrap"
@@ -82,30 +79,41 @@
                 "
               >
                 <td>
-                  <!-- {{ cell.value }} -->
-                  {{ cell.value | joinObjectValues }}
+                  <ng-container
+                    *ngFor="let customColumn of customColumns; let j = index"
+                  >
+                    <ng-container *ngIf="!indexList.includes(i)">
+                      <!-- section: normal columns data -->
+                      <ng-container *ngIf="j < 1">
+                        <!-- {{ cell.value }} -->
+                        {{ cell.value | joinObjectValues }}
+                      </ng-container>
+                    </ng-container>
+                    <!-- section: CUSTOM COLUMNS -->
+                    <ng-container *ngIf="customColumn.index === i">
+                      <fa-icon
+                        [icon]="customColumn.icon"
+                        [classes]="['w-4 h-4']"
+                      ></fa-icon>
+                    </ng-container>
+                  </ng-container>
                 </td>
               </ng-container>
+
               <!-- section: ACTIONS BUTTONS -->
               <td
                 *ngIf="actions && actions.length"
                 class="flex justify-around space-x-2"
               >
                 <ng-container *ngFor="let action of actions">
-                  <button (click)="onclick(row?.id)">
+                  <button (click)="onclick(row, action.name)">
                     <fa-icon
-                      [icon]="
-                        action === 'Edit'
-                          ? faPenToSquare
-                          : action === 'Delete'
-                          ? faTrash
-                          : faEye
-                      "
+                      [icon]="action.icon"
                       [classes]="['w-4 h-4']"
                       ngClass="{{
-                        action === 'Delete'
+                        action.name === 'Delete'
                           ? 'text-red-500'
-                          : action === 'Edit'
+                          : action.name === 'Edit'
                           ? 'text-yellow-500'
                           : 'text-blue-500'
                       }}"

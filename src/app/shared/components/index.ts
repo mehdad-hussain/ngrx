@@ -10,3 +10,5 @@ export * from './tab/tab.component';
 export * from './tabs-container/tabs-container.component';
 export * from './toast/toast.component';
 export * from './table-container/table-container.component';
+
+export * from './projection-table-container/projection-table-container.component';

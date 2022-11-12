@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-
-import {
-  AppState,
-  EmployeeService,
-  loadedEmployees,
-  loadEmployees,
-} from '@store';
-import { PaginationService, TableService } from '@core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+// prettier-ignore
+import { faSave,faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort, faSort } from '@fortawesome/free-solid-svg-icons';
+// prettier-ignore
+import { AppState, EmployeeService, loadedEmployees, loadEmployees, } from '@store';
+import { PaginationService, TableService } from '@core';
+
+import { LoadingProcessComponent } from '@assets';
 
 @Component({
   selector: 'app-employee',
@@ -22,13 +21,18 @@ export class EmployeeComponent implements OnInit {
   loading$ = this.employeeService.loading$;
   // payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
   employees$ = this.store.select(loadedEmployees);
+  myContext = { $implicit: 'World', localSk: 'Svet' };
 
   error: string | null = '';
 
   tableName: string = 'Employee Table';
   rows: any[] = [];
   columns: string[] = [];
-  actions = ['Edit', 'View', 'Delete'];
+  actions = [
+    { name: 'Edit', icon: faPenToSquare },
+    { name: 'View', icon: faEye },
+    { name: 'Delete', icon: faTrash },
+  ];
   pageSize: number = 4;
   maxPagesToDisplay: number = 10;
 
@@ -36,6 +40,12 @@ export class EmployeeComponent implements OnInit {
 
   qry = new FormControl('', []);
   options = new FormControl('', []);
+
+  customColumns = [
+    { name: 'permissions', index: 7, icon: faSave, type: 'icon' },
+    { name: 'price list', index: 6, icon: faArrowDownWideShort, type: 'icon' },
+    { name: 'details', index: 5, icon: faArrowUpWideShort, type: 'icon' },
+  ];
 
   productDataArray = [
     {

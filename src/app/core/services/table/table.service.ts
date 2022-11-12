@@ -5,7 +5,7 @@ interface ITable {
   id: string;
   rows: any[];
   columns: string[] | undefined;
-  actions: string[] | undefined;
+  actions: { name: string; icon: any }[] | undefined;
 }
 
 @Injectable({
@@ -21,7 +21,12 @@ export class TableService {
 
   constructor() {}
 
-  setTable(id: string, rows: any[], columns?: string[], actions?: string[]) {
+  setTable(
+    id: string,
+    rows: any[],
+    columns?: string[],
+    actions?: { name: string; icon: any }[]
+  ) {
     this.tables.push({
       id,
       rows,

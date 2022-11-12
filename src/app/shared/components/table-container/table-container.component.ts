@@ -1,7 +1,7 @@
 // prettier-ignore
-import { Component, Input, OnInit, OnChanges, SimpleChanges, } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 // prettier-ignore
-import { faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDownWideShort, faArrowUpWideShort, faSort } from '@fortawesome/free-solid-svg-icons';
 
 // import: local files
 import { TableService } from '@core';
@@ -17,7 +17,14 @@ export class TableContainerComponent implements OnInit {
   @Input() tableContainerClass: string = '';
   @Input() tableBodyClass: string = '';
   @Input() tableHeaderClass: string = '';
-  @Input() loading: boolean | null = false;
+
+  @Input() customColumns: {
+    name: string;
+    index: number;
+    icon: any;
+    type: string;
+  }[] = [];
+  indexList: number[] = [];
 
   // section: Optional Inputs
   // @Input() resizable!: Boolean;
@@ -34,7 +41,7 @@ export class TableContainerComponent implements OnInit {
 
   // section: TABLE DATA COLUMN AND ROW WILL GET FROM TABLE SERVICE
   rows: any[] = [];
-  actions: any;
+  actions: { name: string; icon: any }[] = [];
   tableData: any;
 
   // section: sorting related variables
@@ -43,9 +50,6 @@ export class TableContainerComponent implements OnInit {
   sortedColumns: any[] = [];
 
   // section: font awesome icons
-  faPenToSquare = faPenToSquare;
-  faEye = faEye;
-  faTrash = faTrash;
   faArrowUpWideShort = faArrowUpWideShort;
   faArrowDownWideShort = faArrowDownWideShort;
   faSort = faSort;
@@ -58,9 +62,9 @@ export class TableContainerComponent implements OnInit {
     this.sortedRows = this.rows;
     this.actions = this.tableData.actions;
 
-    console.log(this.tableData);
-    console.log(this.rows);
-    console.log(this.sortedRows);
+    console.log('table data - ', this.tableData);
+    console.log('table rows - ', this.rows);
+    console.log('sorted rows - ', this.sortedRows);
     /**section: creating column objects for making easier to show sorted data and icons conditionally
      * 1. create an array of objects with column name, is it sortable or not, and in which order it is sorted
      * 2. if the column is not sortable, then set the order to none
@@ -86,6 +90,10 @@ export class TableContainerComponent implements OnInit {
         this.sortedRows = [...res].sort(fn);
         // this.sortedRows = res;
       }
+    });
+
+    this.customColumns.map((column) => {
+      this.indexList.push(column.index);
     });
   }
 
@@ -180,7 +188,7 @@ export class TableContainerComponent implements OnInit {
   };
 
   // section: function  for actions buttons
-  onclick = (row: any) => {
-    console.log('clicked', row);
+  onclick = (row: any, action: string) => {
+    console.log('clicked', action, row);
   };
 }
