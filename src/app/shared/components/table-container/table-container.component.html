@@ -20,12 +20,27 @@
         class="items-center w-full bg-transparent border-collapse table-auto"
         [ngClass]="classNames(tableBodyClass)"
       >
-        <!-- section: TABLE HEAD NG FOR LOOP -->
+        <!-- section: TABLE HEAD -->
         <thead>
           <tr>
+            <!-- section: checkbox header -->
+            <th
+              class="px-2 py-3 align-middle border border-l-0 border-r-0 border-solid"
+              [ngClass]="classNames(tableHeaderClass)"
+            >
+              <input
+                (change)="selectAllRows($event, tableData)"
+                class="w-4 h-4"
+                type="checkbox"
+                id="select-all"
+                name="select-all"
+                value="select-all"
+              />
+            </th>
+            <!-- section: loop though header -->
             <ng-container *ngFor="let column of sortedColumns">
               <th
-                class="px-6 py-3 align-middle border border-l-0 border-r-0 border-solid"
+                class="px-4 py-3 align-middle border border-l-0 border-r-0 border-solid"
                 [ngClass]="classNames(tableHeaderClass)"
               >
                 <button
@@ -43,7 +58,7 @@
                     [icon]="faSort"
                     [classes]="[' w-3.5 h-3.5']"
                   ></fa-icon>
-                  <!-- section: sort icons -->
+                  <!-- section: sort icons up and down  -->
                   <fa-icon
                     *ngIf="column.sortable && column.sort !== 'none'"
                     [icon]="
@@ -56,9 +71,9 @@
                 </button>
               </th>
             </ng-container>
-            <!-- section: ACTION HEADER for ACTION COLUMN -->
+            <!-- section: action header  -->
             <th
-              class="px-6 py-3 text-xs font-bold text-left text-black uppercase align-middle border-solid bg-gray-700/30 whitespace-nowrap"
+              class="px-4 py-3 text-xs font-bold text-left text-black uppercase align-middle border-solid bg-gray-700/30 whitespace-nowrap"
               *ngIf="actions && actions.length"
             >
               ACTIONS
@@ -67,10 +82,25 @@
         </thead>
         <!-- section: TABLE BODY -->
         <tbody class="relative even-child:bg-gray-300/50">
-          <ng-container *ngFor="let row of sortedRows">
+          <ng-container *ngFor="let row of sortedRows; let r = index">
             <tr
-              class="border-b border-gray-500 child:truncate child:py-2.5 child:px-6 child:text-xs child:align-middle child:border-t-0 child:border-l-0 child:border-r-0 child:whitespace-nowrap"
+              class="border-b border-gray-500 child:truncate child:py-2.5 child:px-4 child:text-xs child:align-middle child:border-t-0 child:border-l-0 child:border-r-0 child:whitespace-nowrap"
             >
+              <!-- section: checkbox Button -->
+
+              <td class="text-center">
+                <!-- (click)="selectRow($event, row)"
+                (input)="selectRow($event, row)" -->
+                <input
+                  (change)="selectRow($event, row)"
+                  class="w-4 h-4"
+                  type="checkbox"
+                  id="{{ 'checkbox' + r }}"
+                  name="{{ 'checkbox' + r }}"
+                  value="{{ 'checkbox' + r }}"
+                />
+              </td>
+
               <!-- section: TABLE DATA with NG FOR LOOP for every single row -->
               <ng-container
                 *ngFor="
@@ -91,10 +121,12 @@
                     </ng-container>
                     <!-- section: CUSTOM COLUMNS -->
                     <ng-container *ngIf="customColumn.index === i">
-                      <fa-icon
-                        [icon]="customColumn.icon"
-                        [classes]="['w-4 h-4']"
-                      ></fa-icon>
+                      <button (click)="onclick(row, customColumn.name)">
+                        <fa-icon
+                          [icon]="customColumn.icon"
+                          [classes]="['w-4 h-4']"
+                        ></fa-icon>
+                      </button>
                     </ng-container>
                   </ng-container>
                 </td>

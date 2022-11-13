@@ -49,6 +49,8 @@ export class TableContainerComponent implements OnInit {
   sortedRows: any[] = [];
   sortedColumns: any[] = [];
 
+  selectedRows: any[] = [];
+  dataForPrint: any[] = [];
   // section: font awesome icons
   faArrowUpWideShort = faArrowUpWideShort;
   faArrowDownWideShort = faArrowDownWideShort;
@@ -190,5 +192,72 @@ export class TableContainerComponent implements OnInit {
   // section: function  for actions buttons
   onclick = (row: any, action: string) => {
     console.log('clicked', action, row);
+  };
+
+  // section: function for custom columns
+
+  customColumn = (row: any, index: number) => {
+    // const { customColumn, index: customColumnIndex } = this.customColumns.find(
+    //   (column) => column.index === index
+    // );
+    // return customColumn(row);
+  };
+
+  // section: FUNCTION FOR SELECTING ROWS WITH CHECKBOX
+  selectRow = (event: any, value: any) => {
+    // step 1: checking whether checkbox is checked or not
+    let selected = event.target.checked;
+    let columns = this.tableData.columns;
+
+    if (selected) {
+      this.selectedRows = [...this.selectedRows, value];
+    } else {
+      this.selectedRows = this.selectedRows.filter((row) => row !== value);
+    }
+
+    this.dataForPrint = [];
+    if (this.selectedRows.length !== 0) {
+      for (let r = 0; r < this.selectedRows.length; r++) {
+        let obj: any = {};
+        for (let c = 0; c < columns.length; c++) {
+          obj[columns[c]] = this.selectedRows[r][c];
+        }
+        this.dataForPrint.push(obj);
+      }
+    }
+    console.log(this.dataForPrint);
+  };
+
+  selectAllRows = (event: any, tableData: any) => {
+    // step 1: checking whether checkbox is checked or not
+    let selected = event.target.checked;
+    console.log(selected);
+
+    // step 2: if allSelected is true, then select all the rows
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach((checkbox: any) => {
+      selected ? (checkbox.checked = true) : (checkbox.checked = false);
+    });
+
+    let columns = tableData.columns;
+    this.selectedRows = tableData.rows;
+    this.dataForPrint = [];
+
+    // step 3: if selected is true, make table array with all the rows and column names
+
+    if (selected) {
+      for (let r = 0; r < this.selectedRows.length; r++) {
+        let obj: any = {};
+        for (let c = 0; c < columns.length; c++) {
+          obj[columns[c]] = this.selectedRows[r][c];
+        }
+        this.dataForPrint.push(obj);
+      }
+    } else {
+      this.dataForPrint = [];
+      this.selectedRows = [];
+    }
+    console.log(this.dataForPrint);
   };
 }

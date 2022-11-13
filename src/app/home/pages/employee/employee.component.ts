@@ -3,12 +3,10 @@ import { Store } from '@ngrx/store';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // prettier-ignore
-import { faSave,faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faSave,faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
 // prettier-ignore
 import { AppState, EmployeeService, loadedEmployees, loadEmployees, } from '@store';
 import { PaginationService, TableService } from '@core';
-
-import { LoadingProcessComponent } from '@assets';
 
 @Component({
   selector: 'app-employee',
@@ -40,6 +38,7 @@ export class EmployeeComponent implements OnInit {
 
   qry = new FormControl('', []);
   options = new FormControl('', []);
+  switch = new FormControl('', []);
 
   customColumns = [
     { name: 'permissions', index: 7, icon: faSave, type: 'icon' },
