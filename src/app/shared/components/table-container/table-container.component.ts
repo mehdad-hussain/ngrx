@@ -45,9 +45,10 @@ export class TableContainerComponent implements OnInit {
   tableData: any;
 
   // section: sorting related variables
-  columnName = '';
+  columnName: number = -1;
   sortedRows: any[] = [];
   sortedColumns: any[] = [];
+  currentSort = 'default';
 
   selectedRows: any[] = [];
   dataForPrint: any[] = [];
@@ -60,13 +61,26 @@ export class TableContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableData = this.table.getTableData(this.tableName);
-    this.rows = this.tableData.rows;
+
+    let columnDef = this.tableData.columnDef;
+
+    console.log('columnDef', columnDef);
+
+    this.tableData.rows.map((row: any) => {
+      let rectifiedRow: any = {};
+      columnDef.map((column: any) => {
+        rectifiedRow[column] = row[column];
+      });
+      this.rows.push(rectifiedRow);
+    });
+
+    // this.rows = this.tableData.rows;
     this.sortedRows = this.rows;
     this.actions = this.tableData.actions;
 
     console.log('table data - ', this.tableData);
     console.log('table rows - ', this.rows);
-    console.log('sorted rows - ', this.sortedRows);
+    // console.log('sorted rows - ', this.sortedRows);
     /**section: creating column objects for making easier to show sorted data and icons conditionally
      * 1. create an array of objects with column name, is it sortable or not, and in which order it is sorted
      * 2. if the column is not sortable, then set the order to none
@@ -83,17 +97,29 @@ export class TableContainerComponent implements OnInit {
       }
     });
 
+    console.log('sorted columns - ', this.sortedColumns);
+
     // section: changing table data when page is changed
     this.table.changeTableData$.subscribe((res) => {
       // console.log(res);
+      let rectifiedRows: any[] = [];
       if (res) {
+        res.map((row: any) => {
+          let rectifiedRow: any = {};
+          columnDef.map((column: any) => {
+            rectifiedRow[column] = row[column];
+          });
+          rectifiedRows.push(rectifiedRow);
+        });
+
         const { fn } = this.sortTypes[this.currentSort];
 
-        this.sortedRows = [...res].sort(fn);
+        this.sortedRows = [...rectifiedRows].sort(fn);
         // this.sortedRows = res;
       }
     });
 
+    // section: creating array of indexes for custom columns
     this.customColumns.map((column) => {
       this.indexList.push(column.index);
     });
@@ -117,12 +143,14 @@ export class TableContainerComponent implements OnInit {
     up: {
       fn: (a?: any, b?: any) => {
         let Ca, Cb;
-        if (typeof a[this.columnName] === 'string') {
-          Ca = a[this.columnName].toLowerCase();
-          Cb = b[this.columnName].toLowerCase();
+        const aKeys = Object.keys(a);
+        const bKeys = Object.keys(b);
+        if (typeof a[aKeys[this.columnName]] === 'string') {
+          Ca = a[aKeys[this.columnName]].toLowerCase();
+          Cb = b[bKeys[this.columnName]].toLowerCase();
         } else {
-          Ca = a[this.columnName];
-          Cb = b[this.columnName];
+          Ca = a[aKeys[this.columnName]];
+          Cb = b[bKeys[this.columnName]];
         }
         return Ca < Cb ? -1 : 0;
       },
@@ -130,12 +158,14 @@ export class TableContainerComponent implements OnInit {
     down: {
       fn: (a?: any, b?: any) => {
         let Ca, Cb;
-        if (typeof a[this.columnName] === 'string') {
-          Ca = a[this.columnName].toLowerCase();
-          Cb = b[this.columnName].toLowerCase();
+        const aKeys = Object.keys(a);
+        const bKeys = Object.keys(b);
+        if (typeof a[aKeys[this.columnName]] === 'string') {
+          Ca = a[aKeys[this.columnName]].toLowerCase();
+          Cb = b[bKeys[this.columnName]].toLowerCase();
         } else {
-          Ca = a[this.columnName];
-          Cb = b[this.columnName];
+          Ca = a[aKeys[this.columnName]];
+          Cb = b[bKeys[this.columnName]];
         }
         return Ca > Cb ? -1 : 0;
       },
@@ -147,15 +177,14 @@ export class TableContainerComponent implements OnInit {
     },
   };
 
-  currentSort = 'default';
-
-  onSortChange = (column: string) => {
+  onSortChange = (column: number) => {
+    // console.log('column - ', column);
     let nextSort = '';
 
     if (this.columnName !== column) {
       this.currentSort = 'default';
       this.sortedColumns = this.sortedColumns.map((col) => {
-        if (col.name !== column) {
+        if (this.sortedColumns.indexOf(col) !== column) {
           col.sort = 'none';
         }
         return col;
@@ -168,17 +197,23 @@ export class TableContainerComponent implements OnInit {
     if (this.currentSort === 'down') {
       nextSort = 'up';
       this.sortedColumns = this.sortedColumns.map((col) => {
-        return col.name === column ? { ...col, sort: 'sort-up' } : col;
+        return this.sortedColumns.indexOf(col) === column
+          ? { ...col, sort: 'sort-up' }
+          : col;
       });
     } else if (this.currentSort === 'up') {
       nextSort = 'default';
       this.sortedColumns = this.sortedColumns.map((col) => {
-        return col.name === column ? { ...col, sort: 'none' } : col;
+        return this.sortedColumns.indexOf(col) === column
+          ? { ...col, sort: 'none' }
+          : col;
       });
     } else if (this.currentSort === 'default') {
       nextSort = 'down';
       this.sortedColumns = this.sortedColumns.map((col) => {
-        return col.name === column ? { ...col, sort: 'sort-down' } : col;
+        return this.sortedColumns.indexOf(col) === column
+          ? { ...col, sort: 'sort-down' }
+          : col;
       });
     }
 

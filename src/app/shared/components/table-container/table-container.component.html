@@ -30,7 +30,7 @@
             >
               <input
                 (change)="selectAllRows($event, tableData)"
-                class="w-4 h-4"
+                class="w-3.5 h-3.5 rounded-sm"
                 type="checkbox"
                 id="select-all"
                 name="select-all"
@@ -38,14 +38,14 @@
               />
             </th>
             <!-- section: loop though header -->
-            <ng-container *ngFor="let column of sortedColumns">
+            <ng-container *ngFor="let column of sortedColumns; let i = index">
               <th
                 class="px-4 py-3 align-middle border border-l-0 border-r-0 border-solid"
                 [ngClass]="classNames(tableHeaderClass)"
               >
                 <button
                   [disabled]="!column.sortable"
-                  (click)="onSortChange(column.name)"
+                  (click)="onSortChange(i)"
                   type="button"
                   class="flex items-center space-x-1 text-xs font-bold text-left uppercase whitespace-nowrap"
                 >
@@ -89,11 +89,9 @@
               <!-- section: checkbox Button -->
 
               <td class="text-center">
-                <!-- (click)="selectRow($event, row)"
-                (input)="selectRow($event, row)" -->
                 <input
                   (change)="selectRow($event, row)"
-                  class="w-4 h-4"
+                  class="w-3.5 h-3.5 rounded-sm"
                   type="checkbox"
                   id="{{ 'checkbox' + r }}"
                   name="{{ 'checkbox' + r }}"

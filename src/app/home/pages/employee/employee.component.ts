@@ -31,7 +31,7 @@ export class EmployeeComponent implements OnInit {
     { name: 'View', icon: faEye },
     { name: 'Delete', icon: faTrash },
   ];
-  pageSize: number = 4;
+  pageSize: number = 2;
   maxPagesToDisplay: number = 10;
 
   faSpinner = faSpinner;
@@ -100,11 +100,18 @@ export class EmployeeComponent implements OnInit {
       console.log('res', res);
       if (res.length) {
         // prettier-ignore
-        this.columns = [ 'employee id', 'name', 'designation', 'service location', 'contact number', 'gender', 'branch name', 'permissions', ];
-        // prettier-ignore
-        res.map((item) => { this.rows.push([ item.EmployeeId, item.FullName, item.Designation, item.ServiceLocation, item.ContactNumber, item.Gender, item.BranchName, item.Permissions ]); });
-        let data: any[];
-
+        let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName'];
+        this.columns = [
+          'Employee Id',
+          'Full Name',
+          'Designation',
+          'Service Location',
+          'Contact Number',
+          'Gender',
+          'Branch Name',
+        ];
+        this.rows = res;
+        let data;
         if (this.pageSize > res.length) {
           this.pageSize = res.length;
           data = res;
@@ -112,26 +119,9 @@ export class EmployeeComponent implements OnInit {
           data = res.slice(0, this.pageSize);
         }
 
-        let tempData = [...data];
-        console.log('tempData', tempData);
-
-        data = [];
-
-        tempData.map((item) => {
-          data.push([
-            item.EmployeeId,
-            item.FullName,
-            item.Designation,
-            item.ServiceLocation,
-            item.ContactNumber,
-            item.Gender,
-            item.BranchName,
-            item.Permissions,
-          ]);
-        });
-
         this.pagination.setPaginationData(this.tableName, this.rows);
-        this.table.setTable(this.tableName, data, this.columns, this.actions);
+        // prettier-ignore
+        this.table.setTable( this.tableName, data, this.columns, columnDef, this.actions );
       }
     });
 
