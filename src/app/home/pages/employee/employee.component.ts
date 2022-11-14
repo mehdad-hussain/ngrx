@@ -100,7 +100,7 @@ export class EmployeeComponent implements OnInit {
       console.log('res', res);
       if (res.length) {
         // prettier-ignore
-        let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName'];
+        let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName', 'Permissions'];
         this.columns = [
           'Employee Id',
           'Full Name',
@@ -109,6 +109,7 @@ export class EmployeeComponent implements OnInit {
           'Contact Number',
           'Gender',
           'Branch Name',
+          'Permissions',
         ];
         this.rows = res;
         let data;

@@ -242,7 +242,7 @@ export class TableContainerComponent implements OnInit {
   selectRow = (event: any, value: any) => {
     // step 1: checking whether checkbox is checked or not
     let selected = event.target.checked;
-    let columns = this.tableData.columns;
+    let columns = this.tableData.columnDef;
 
     if (selected) {
       this.selectedRows = [...this.selectedRows, value];
@@ -255,7 +255,7 @@ export class TableContainerComponent implements OnInit {
       for (let r = 0; r < this.selectedRows.length; r++) {
         let obj: any = {};
         for (let c = 0; c < columns.length; c++) {
-          obj[columns[c]] = this.selectedRows[r][c];
+          obj[columns[c]] = Object.values(this.selectedRows[r])[c];
         }
         this.dataForPrint.push(obj);
       }
@@ -275,8 +275,8 @@ export class TableContainerComponent implements OnInit {
       selected ? (checkbox.checked = true) : (checkbox.checked = false);
     });
 
-    let columns = tableData.columns;
-    this.selectedRows = tableData.rows;
+    let columns = tableData.columnDef;
+    this.selectedRows = this.sortedRows;
     this.dataForPrint = [];
 
     // step 3: if selected is true, make table array with all the rows and column names
@@ -285,7 +285,7 @@ export class TableContainerComponent implements OnInit {
       for (let r = 0; r < this.selectedRows.length; r++) {
         let obj: any = {};
         for (let c = 0; c < columns.length; c++) {
-          obj[columns[c]] = this.selectedRows[r][c];
+          obj[columns[c]] = Object.values(this.selectedRows[r])[c];
         }
         this.dataForPrint.push(obj);
       }
