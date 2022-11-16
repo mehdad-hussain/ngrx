@@ -4,9 +4,11 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // prettier-ignore
 import { faSave,faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
+
 // prettier-ignore
 import { AppState, EmployeeService, loadedEmployees, loadEmployees, } from '@store';
 import { PaginationService, TableService } from '@core';
+import { ColumnType } from 'app/shared/components';
 
 @Component({
   selector: 'app-employee',
@@ -41,9 +43,19 @@ export class EmployeeComponent implements OnInit {
   switch = new FormControl('', []);
 
   customColumns = [
-    { name: 'permissions', index: 7, icon: faSave, type: 'icon' },
-    { name: 'price list', index: 6, icon: faArrowDownWideShort, type: 'icon' },
-    { name: 'details', index: 5, icon: faArrowUpWideShort, type: 'icon' },
+    { name: 'permissions', index: 7, type: ColumnType.icon, icon: faSave },
+    {
+      name: 'price list',
+      index: 6,
+      type: ColumnType.link,
+      url: '/admin/dashboard',
+    },
+    {
+      name: 'details',
+      index: 5,
+      type: ColumnType.image,
+      icon: faArrowUpWideShort,
+    },
   ];
 
   productDataArray = [

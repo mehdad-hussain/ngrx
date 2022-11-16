@@ -6,6 +6,13 @@ import { faArrowDownWideShort, faArrowUpWideShort, faSort } from '@fortawesome/f
 // import: local files
 import { TableService } from '@core';
 
+export const enum ColumnType {
+  icon = 'icon',
+  image = 'image',
+  link = 'link',
+  button = 'button',
+}
+
 @Component({
   selector: 'app-table-container',
   templateUrl: './table-container.component.html',
@@ -18,13 +25,22 @@ export class TableContainerComponent implements OnInit {
   @Input() tableBodyClass: string = '';
   @Input() tableHeaderClass: string = '';
 
-  @Input() customColumns: {
+  @Input('customColumns') customColumns: {
     name: string;
     index: number;
-    icon: any;
-    type: string;
+    type: ColumnType;
+    icon?: any;
+    url?: string;
   }[] = [];
+
   indexList: number[] = [];
+  // section: Optional Inputs
+  // @Input() resizable!: Boolean;
+  // @Input() longPress!: Boolean;
+  // @Input() dragging!: Boolean;
+  // @Input() sortActive!: Boolean;
+  // @Input() sortAsc!: Boolean;
+  // @Input() sortDesc!: Boolean;
 
   // section: Optional Inputs
   // @Input() resizable!: Boolean;

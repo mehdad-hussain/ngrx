@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 // prettier-ignore
 import { DefaultDataServiceConfig, EntityDataModule, EntityDataService, } from '@ngrx/data';
 
@@ -30,6 +31,7 @@ const customDataServiceConfig: DefaultDataServiceConfig = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    // AngularSvgIconModule.forRoot(),
 
     // step 1: StoreModule.forRoot(reducers),
     StoreModule.forRoot(

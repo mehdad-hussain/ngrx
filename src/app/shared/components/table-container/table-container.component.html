@@ -119,11 +119,33 @@
                     </ng-container>
                     <!-- section: CUSTOM COLUMNS -->
                     <ng-container *ngIf="customColumn.index === i">
-                      <button (click)="onclick(row, customColumn.name)">
+                      <button
+                        *ngIf="customColumn.type === 'icon'"
+                        (click)="onclick(row, customColumn.name)"
+                      >
                         <fa-icon
                           [icon]="customColumn.icon"
                           [classes]="['w-4 h-4']"
                         ></fa-icon>
+                      </button>
+                      <img
+                        *ngIf="customColumn.type === 'image'"
+                        src="{{ customColumn.url }}"
+                        alt="{{ customColumn.name }}"
+                      />
+                      <button
+                        class="w-24 py-1.5 border border-black rounded-sm"
+                        *ngIf="customColumn.type === 'link'"
+                        routerLink="{{ customColumn.url }}"
+                      >
+                        {{ customColumn.name | titlecase }}
+                      </button>
+
+                      <button
+                        class="w-24 py-1.5 border border-black rounded-sm"
+                        *ngIf="customColumn.type === 'button'"
+                      >
+                        {{ customColumn.name | titlecase }}
                       </button>
                     </ng-container>
                   </ng-container>

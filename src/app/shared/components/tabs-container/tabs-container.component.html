@@ -9,8 +9,14 @@
         ' hover:text-white bg-indigo-400': tab.active,
         'hover:text-indigo-500': !tab.active
       }"
-      >{{ tab.title }}</a
     >
+      {{ tab.title }}
+      <fa-icon
+        *ngIf="tab.icon"
+        [icon]="tab.icon"
+        [classes]="['w-4 h-4']"
+      ></fa-icon>
+    </a>
     <!-- idea: being able to access a component property is very interesting, angular can do it but this property must be public  -->
   </li>
 </ul>

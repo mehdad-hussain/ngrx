@@ -36,6 +36,7 @@
             />
           </svg>
         </a>
+
         <a
           class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
           href="#"
@@ -198,9 +199,12 @@
         <span class="ml-2 text-sm font-bold">The App</span>
       </a>
 
-      <!-- <app-tabs-container>
+      <app-tabs-container>
         <app-tab title="name">
-          <p>name</p>
+          <svg-icon
+            src="../assets/icons/chevrons-right.svg"
+            [svgClass]="'w-4 h-4 stroke-red-500'"
+          ></svg-icon>
           <p>name</p>
           <p>name</p>
         </app-tab>
@@ -211,7 +215,7 @@
           <p>list</p>
           <p>list</p>
         </app-tab>
-      </app-tabs-container> -->
+      </app-tabs-container>
       <!-- <div class="w-full px-2">
         <div
           class="flex flex-col items-center w-full mt-3 border-t border-gray-700"

@@ -15,7 +15,12 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const apiReq = req.clone({ url: `${environment.api}/${req.url}` });
+    let apiReq: any;
+    if (req.url.includes('/assets/icons')) {
+      apiReq = req.clone({ url: `http://localhost:4840/${req.url}` });
+    } else {
+      apiReq = req.clone({ url: `${environment.api}/${req.url}` });
+    }
     // const apiReq = req.clone({ url: `${environment.api}/${req.url}` });
     return next.handle(apiReq);
   }
