@@ -9,7 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent, FooterComponent,CounterComponent,CounterButtonsComponent,CounterOutputComponent,CustomCounterInputComponent,SideNavbarComponent,ToggleThemeBtnComponent,ListPageLayoutComponent } from './layout';
 import { ClickOutsideDirective } from './directives';
 // prettier-ignore
-import { SplitPipe, SumPipe, TypeOfPipe, ReversePipe, LengthPipe, SentenceCasePipe, SlugifyPipe, SomePipe, SqrtPipe, PowPipe, PctPipe, MinPipe, MaxPipe, MapPipe, LastPipe, JoinPipe, FirstPipe, FillPipe, EveryPipe, CopyWithinPipe, CombinePipe, CharAtPipe, CamelCasePipe, ConcatPipe, InterpolatePipe, PascalCasePipe, RepeatPipe, TrimPipe, TrimLeftPipe, TrimRightPipe, TruncatePipe, AvgPipe, AbsPipe, CeilPipe, FloorPipe, RoundPipe, JoinObjectValuesPipe } from './pipes';
+import { SplitPipe, SumPipe, TypeOfPipe, ReversePipe, LengthPipe, SentenceCasePipe, SlugifyPipe, SomePipe, SqrtPipe, PowPipe, PctPipe, MinPipe, MaxPipe, MapPipe, LastPipe, JoinPipe, FirstPipe, FillPipe, EveryPipe, CopyWithinPipe, CombinePipe, CharAtPipe, CamelCasePipe, ConcatPipe, InterpolatePipe, PascalCasePipe, RepeatPipe, TrimPipe, TrimLeftPipe, TrimRightPipe, TruncatePipe, AvgPipe, AbsPipe, CeilPipe, FloorPipe, RoundPipe, JoinObjectValuesPipe,SplitPascalCasePipe } from './pipes';
 // prettier-ignore
 import { CheckboxComponent, InputComponent, ModalContainerComponent, PaginationBarComponent, RadioBtnComponent, SearchBarComponent, SelectComponent, SliderComponent, TabComponent, TableContainerComponent, TabsContainerComponent, ToastComponent, ProjectionTableContainerComponent  } from './components';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -44,6 +44,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     // pipes
     SplitPipe,
     JoinObjectValuesPipe,
+    SplitPascalCasePipe,
     // directives
     ClickOutsideDirective,
   ],
@@ -81,6 +82,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
     // export: pipes
     SplitPipe,
+    SplitPascalCasePipe,
   ],
 })
 export class SharedModule {}

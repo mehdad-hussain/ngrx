@@ -68,6 +68,7 @@ export class TableContainerComponent implements OnInit {
 
   selectedRows: any[] = [];
   dataForPrint: any[] = [];
+
   // section: font awesome icons
   faArrowUpWideShort = faArrowUpWideShort;
   faArrowDownWideShort = faArrowDownWideShort;
@@ -78,24 +79,27 @@ export class TableContainerComponent implements OnInit {
   ngOnInit(): void {
     this.tableData = this.table.getTableData(this.tableName);
 
-    let columnDef = this.tableData.columnDef;
+    // let columnDef = this.tableData.columnDef;
 
-    console.log('columnDef', columnDef);
+    // console.log('columnDef', columnDef);
+
+    let columns = this.tableData.columns;
 
     this.tableData.rows.map((row: any) => {
       let rectifiedRow: any = {};
-      columnDef.map((column: any) => {
+      columns.map((column: any) => {
         rectifiedRow[column] = row[column];
       });
       this.rows.push(rectifiedRow);
     });
 
     // this.rows = this.tableData.rows;
+    // this.sortedColumns = this.tableData.columns;
     this.sortedRows = this.rows;
     this.actions = this.tableData.actions;
 
-    console.log('table data - ', this.tableData);
-    console.log('table rows - ', this.rows);
+    // console.log('table data - ', this.tableData);
+    // console.log('table rows - ', this.rows);
     // console.log('sorted rows - ', this.sortedRows);
     /**section: creating column objects for making easier to show sorted data and icons conditionally
      * 1. create an array of objects with column name, is it sortable or not, and in which order it is sorted
@@ -122,11 +126,13 @@ export class TableContainerComponent implements OnInit {
       if (res) {
         res.map((row: any) => {
           let rectifiedRow: any = {};
-          columnDef.map((column: any) => {
+          columns.map((column: any) => {
             rectifiedRow[column] = row[column];
           });
           rectifiedRows.push(rectifiedRow);
         });
+
+        console.log('rectified rows - ', rectifiedRows);
 
         const { fn } = this.sortTypes[this.currentSort];
 
@@ -258,7 +264,7 @@ export class TableContainerComponent implements OnInit {
   selectRow = (event: any, value: any) => {
     // step 1: checking whether checkbox is checked or not
     let selected = event.target.checked;
-    let columns = this.tableData.columnDef;
+    let columns = this.tableData.columns;
 
     if (selected) {
       this.selectedRows = [...this.selectedRows, value];
@@ -276,6 +282,13 @@ export class TableContainerComponent implements OnInit {
         this.dataForPrint.push(obj);
       }
     }
+
+    if (this.selectedRows.length === 0) {
+      this.dataForPrint = [];
+      let selectAll = document.getElementById('select-all') as HTMLInputElement;
+      selectAll.checked = false;
+    }
+
     console.log(this.dataForPrint);
   };
 
@@ -291,7 +304,7 @@ export class TableContainerComponent implements OnInit {
       selected ? (checkbox.checked = true) : (checkbox.checked = false);
     });
 
-    let columns = tableData.columnDef;
+    let columns = tableData.columns;
     this.selectedRows = this.sortedRows;
     this.dataForPrint = [];
 

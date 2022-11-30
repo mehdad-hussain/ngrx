@@ -112,16 +112,9 @@ export class EmployeeComponent implements OnInit {
       console.log('res', res);
       if (res.length) {
         // prettier-ignore
-        let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName', 'Permissions'];
+        // let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName', 'Permissions'];
         this.columns = [
-          'Employee Id',
-          'Full Name',
-          'Designation',
-          'Service Location',
-          'Contact Number',
-          'Gender',
-          'Branch Name',
-          'Permissions',
+          'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName', 'Permissions'
         ];
         this.rows = res;
         let data;
@@ -134,7 +127,7 @@ export class EmployeeComponent implements OnInit {
 
         this.pagination.setPaginationData(this.tableName, this.rows);
         // prettier-ignore
-        this.table.setTable( this.tableName, data, this.columns, columnDef, this.actions );
+        this.table.setTable( this.tableName, data, this.columns, this.actions );
       }
     });
 

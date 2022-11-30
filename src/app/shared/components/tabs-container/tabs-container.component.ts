@@ -1,4 +1,10 @@
-import { Component, ContentChildren, OnInit, QueryList } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  Input,
+  OnInit,
+  QueryList,
+} from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
 @Component({
@@ -7,6 +13,8 @@ import { TabComponent } from '../tab/tab.component';
   styleUrls: ['./tabs-container.component.scss'],
 })
 export class TabsContainerComponent implements OnInit {
+  @Input() tabsContainerClasses: string = '';
+
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent> =
     new QueryList();
   // @ContentChildren(TabComponent) tabs?: QueryList<TabComponent>;

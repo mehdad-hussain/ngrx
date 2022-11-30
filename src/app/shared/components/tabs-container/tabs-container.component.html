@@ -1,5 +1,5 @@
 <!-- Tabs -->
-<ul class="flex flex-wrap mb-4">
+<ul [class]="'flex flex-wrap mb-4 ' + tabsContainerClasses">
   <li *ngFor="let tab of tabs" class="flex-auto text-center">
     <a
       class="block px-4 py-3 text-white transition bg-indigo-400 rounded hover:text-white"

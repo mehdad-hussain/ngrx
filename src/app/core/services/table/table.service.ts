@@ -5,7 +5,7 @@ interface ITable {
   id: string;
   rows: any[];
   columns: string[] | undefined;
-  columnDef: any[] | undefined;
+  // columnDef: any[] | undefined;
   actions: { name: string; icon: any }[] | undefined;
 }
 
@@ -26,7 +26,7 @@ export class TableService {
     id: string,
     rows: any[],
     columns?: string[],
-    columnDef?: any[],
+    // columnDef?: any[],
     actions?: { name: string; icon: any }[]
   ) {
     this.tables.push({
@@ -34,7 +34,7 @@ export class TableService {
       rows,
       columns,
       actions,
-      columnDef,
+      // columnDef,
     });
   }
 

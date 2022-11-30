@@ -13,6 +13,7 @@ export * from './string/trim/trim.pipe';
 export * from './string/trim-left/trim-left.pipe';
 export * from './string/trim-right/trim-right.pipe';
 export * from './string/truncate/truncate.pipe';
+export * from './string/split-pascal-case.pipe';
 
 export * from './array/combine/combine.pipe';
 export * from './array/copyWithin/copy-within.pipe';
@@ -28,6 +29,7 @@ export * from './generic/length/length.pipe';
 export * from './generic/reverse/reverse.pipe';
 export * from './generic/type-of/type-of.pipe';
 export * from './generic/join-object-values/join-object-values.pipe';
+export * from './generic/number-to-word/number-to-word.pipe';
 
 // export * from './array/reduce/reduce.pipe';
 // export * from './array/sort/sort.pipe';
