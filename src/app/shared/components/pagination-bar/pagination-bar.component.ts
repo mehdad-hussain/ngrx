@@ -71,6 +71,11 @@ export class PaginationBarComponent implements OnInit {
     // calculate total pages
     let totalPages = Math.ceil(totalItems / pageSize);
 
+    // idea: if total pages is less than max pages to display, set max pages to display to total pages
+    if (totalPages < maxPagesToDisplay) {
+      maxPagesToDisplay = totalPages;
+    }
+
     let startPage: number, endPage;
 
     if (totalPages <= maxPagesToDisplay) {
@@ -124,6 +129,11 @@ export class PaginationBarComponent implements OnInit {
 
     if (page < 1 || page > pager.totalPages) {
       return;
+    }
+
+    // idea: if total pages is less than max pages to display, set max pages to display to total pages
+    if (pager.totalPages < this.maxPagesToDisplay) {
+      this.maxPagesToDisplay = pager.totalPages;
     }
 
     // idea: get new pager object for specified page

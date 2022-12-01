@@ -34,7 +34,7 @@ export class EmployeeComponent implements OnInit {
     { name: 'Delete', icon: faTrash },
   ];
   pageSize: number = 2;
-  maxPagesToDisplay: number = 10;
+  maxPagesToDisplay: number = 6;
 
   faSpinner = faSpinner;
 
