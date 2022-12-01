@@ -4,13 +4,13 @@
   <!-- section: hidden in big screen, visible in < 640px -->
   <div class="flex justify-between flex-1 sm:hidden">
     <button
-      (click)="setPage(pager.currentPage - 1, $event)"
+      (click)="setPage(pager.currentPage - 1)"
       class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
     >
       Previous
     </button>
     <button
-      (click)="setPage(pager.currentPage + 1, $event)"
+      (click)="setPage(pager.currentPage + 1)"
       class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
     >
       Next
@@ -50,7 +50,7 @@
         <ul class="flex pagination">
           <!-- section: first page button-->
           <li class="" [ngClass]="pager.currentPage === 1 ? 'disabled' : ''">
-            <button (click)="setPage(1, $event)" class="page-btn rounded-l-md">
+            <button (click)="setPage(1)" class="page-btn rounded-l-md">
               First
             </button>
           </li>
@@ -59,10 +59,7 @@
             class="disabled"
             [ngClass]="pager.currentPage === 1 ? 'disabled' : ''"
           >
-            <button
-              class="page-btn"
-              (click)="setPage(pager.currentPage - 1, $event)"
-            >
+            <button class="page-btn" (click)="setPage(pager.currentPage - 1)">
               <span class="sr-only">Previous</span>
               <fa-icon
                 [icon]="faChevronLeft"
@@ -84,7 +81,7 @@
           <ng-container *ngFor="let page of pager.pages">
             <li class="">
               <button
-                (click)="setPage(page, $event)"
+                (click)="setPage(page)"
                 class=""
                 [ngClass]="
                   pager.currentPage === page ? 'page-active' : 'page-btn'
@@ -110,10 +107,7 @@
             class=""
             [ngClass]="pager.currentPage === pager.totalPages ? 'disabled' : ''"
           >
-            <button
-              class="page-btn"
-              (click)="setPage(pager.currentPage + 1, $event)"
-            >
+            <button class="page-btn" (click)="setPage(pager.currentPage + 1)">
               <span class="sr-only">Next</span>
               <fa-icon
                 [icon]="faChevronRight"
@@ -128,7 +122,7 @@
             [ngClass]="pager.currentPage === pager.totalPages ? 'disabled' : ''"
           >
             <button
-              (click)="setPage(pager.totalPages, $event)"
+              (click)="setPage(pager.totalPages)"
               class="page-btn rounded-r-md"
             >
               Last

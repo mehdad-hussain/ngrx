@@ -22,7 +22,7 @@ import { TableService, PaginationService } from '@core';
 export class PaginationBarComponent implements OnInit {
   @Input() paginationId: string = '';
   @Input() pageSize: number = 10;
-  @Input() maxPagesToDisplay: number = 5;
+  @Input() maxPages: number = 5;
   @Input() showPageSizeDropdown: boolean = false;
   @ViewChild('pageSizeDropdown')
   pageSizeDropdown!: ElementRef;
@@ -35,6 +35,7 @@ export class PaginationBarComponent implements OnInit {
   rightDot: number = 0;
   paginationObject: any;
   paginationData: any[] = [];
+  maxPagesToDisplay = this.maxPages;
   pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 100];
 
   // section: font awesome icons
@@ -134,25 +135,31 @@ export class PaginationBarComponent implements OnInit {
     return this.pager;
   }
 
-  setPage(page: number, $event?: Event) {
-    $event?.preventDefault();
+  setPage(page: number) {
     let items = this.items;
     let pager = this.pager;
 
     let totalPages = Math.ceil(items.length / this.pageSize);
 
-    if (page < 1 || page > totalPages) {
+    if (page < 1 || page > pager.totalPages) {
       return;
     }
 
     // idea: if total pages is less than max pages to display, set max pages to display to total pages
-    let maxPagesToDisplay = this.maxPagesToDisplay;
-    if (totalPages < this.maxPagesToDisplay) {
-      maxPagesToDisplay = totalPages;
+
+    if (totalPages < this.maxPages) {
+      this.maxPagesToDisplay = totalPages;
+    } else {
+      this.maxPagesToDisplay = this.maxPages;
     }
 
     // idea: get new pager object for specified page
-    pager = this.getPager(items.length, page, this.pageSize, maxPagesToDisplay);
+    pager = this.getPager(
+      items.length,
+      page,
+      this.pageSize,
+      this.maxPagesToDisplay
+    );
 
     // idea: get new page of items from items array
     let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
@@ -187,13 +194,13 @@ export class PaginationBarComponent implements OnInit {
     }
   }
 
-  setArrOfCurrentBtn() {
-    let arr = [];
-    for (let i = this.pager.startPage; i <= this.pager.endPage; i++) {
-      arr.push(i);
-    }
-    return arr;
-  }
+  // setArrOfCurrentBtn() {
+  //   let arr = [];
+  //   for (let i = this.pager.startPage; i <= this.pager.endPage; i++) {
+  //     arr.push(i);
+  //   }
+  //   return arr;
+  // }
 
   ngAfterViewInit() {
     this.pageSizeDropdown.nativeElement.value = this.pageSize.toString();
