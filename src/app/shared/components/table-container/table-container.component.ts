@@ -84,7 +84,6 @@ export class TableContainerComponent implements OnInit {
   constructor(private table: TableService) {}
 
   ngOnInit(): void {
-    console.log(this.selectAllCheckbox);
     this.tableData = this.table.getTableData(this.tableName);
 
     // let columnDef = this.tableData.columnDef;

@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 // prettier-ignore
 import { faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +23,9 @@ export class PaginationBarComponent implements OnInit {
   @Input() paginationId: string = '';
   @Input() pageSize: number = 10;
   @Input() maxPagesToDisplay: number = 5;
+  @Input() showPageSizeDropdown: boolean = false;
+  @ViewChild('pageSizeDropdown')
+  pageSizeDropdown!: ElementRef;
 
   pager: any;
   initialPage = 1;
@@ -24,6 +35,7 @@ export class PaginationBarComponent implements OnInit {
   rightDot: number = 0;
   paginationObject: any;
   paginationData: any[] = [];
+  pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 100];
 
   // section: font awesome icons
   faChevronLeft = faChevronLeft;
@@ -127,22 +139,20 @@ export class PaginationBarComponent implements OnInit {
     let items = this.items;
     let pager = this.pager;
 
-    if (page < 1 || page > pager.totalPages) {
+    let totalPages = Math.ceil(items.length / this.pageSize);
+
+    if (page < 1 || page > totalPages) {
       return;
     }
 
     // idea: if total pages is less than max pages to display, set max pages to display to total pages
-    if (pager.totalPages < this.maxPagesToDisplay) {
-      this.maxPagesToDisplay = pager.totalPages;
+    let maxPagesToDisplay = this.maxPagesToDisplay;
+    if (totalPages < this.maxPagesToDisplay) {
+      maxPagesToDisplay = totalPages;
     }
 
     // idea: get new pager object for specified page
-    pager = this.getPager(
-      items.length,
-      page,
-      this.pageSize,
-      this.maxPagesToDisplay
-    );
+    pager = this.getPager(items.length, page, this.pageSize, maxPagesToDisplay);
 
     // idea: get new page of items from items array
     let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
@@ -158,15 +168,24 @@ export class PaginationBarComponent implements OnInit {
     this.table.changeTableRows(this.paginationId, pageOfItems);
   }
 
-  // setPager(pager: any) {
-  //   this.pager = pager;
-  // }
-
   // // section: function for parent component
   // onChangePage = (pageOfItems: any) => {
   //   // update state with new page of items
   //   this.pageOfItems = pageOfItems;
   // };
+
+  setPageSize(event: Event) {
+    console.log(this.pager.currentPage);
+
+    let pageSize = parseInt((event.target as HTMLInputElement).value);
+    this.pageSize = pageSize;
+    let totalPages = Math.ceil(this.items.length / this.pageSize);
+    if (this.pager.currentPage > totalPages) {
+      this.setPage(totalPages);
+    } else {
+      this.setPage(this.pager.currentPage);
+    }
+  }
 
   setArrOfCurrentBtn() {
     let arr = [];
@@ -174,5 +193,9 @@ export class PaginationBarComponent implements OnInit {
       arr.push(i);
     }
     return arr;
+  }
+
+  ngAfterViewInit() {
+    this.pageSizeDropdown.nativeElement.value = this.pageSize.toString();
   }
 }
