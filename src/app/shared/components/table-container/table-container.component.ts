@@ -1,5 +1,5 @@
 // prettier-ignore
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 // prettier-ignore
 import { faArrowDownWideShort, faArrowUpWideShort, faSort } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,6 +19,12 @@ export const enum ColumnType {
   styleUrls: ['./table-container.component.scss'],
 })
 export class TableContainerComponent implements OnInit {
+  @ViewChild('selectAllCheckbox')
+  selectAllCheckbox!: ElementRef<HTMLInputElement>;
+  @ViewChildren('checkboxList') checkboxList!: QueryList<
+    ElementRef<HTMLInputElement>
+  >;
+
   // section: Table Classes inputs from parents
   @Input() tableName: string = '';
   @Input() tableContainerClass: string = '';
@@ -66,6 +72,7 @@ export class TableContainerComponent implements OnInit {
   sortedColumns: any[] = [];
   currentSort = 'default';
 
+  // section: checkbox related variables
   selectedRows: any[] = [];
   dataForPrint: any[] = [];
 
@@ -77,6 +84,7 @@ export class TableContainerComponent implements OnInit {
   constructor(private table: TableService) {}
 
   ngOnInit(): void {
+    console.log(this.selectAllCheckbox);
     this.tableData = this.table.getTableData(this.tableName);
 
     // let columnDef = this.tableData.columnDef;
@@ -266,6 +274,35 @@ export class TableContainerComponent implements OnInit {
     let selected = event.target.checked;
     let columns = this.tableData.columns;
 
+    // step 2: if all the checkboxes are checked then make selectAll checkbox checked else unchecked
+    console.log(this.checkboxList.length);
+
+    let allChecked = Array.from(this.checkboxList).every((checkbox) => {
+      return checkbox.nativeElement.checked;
+    });
+
+    allChecked
+      ? (this.selectAllCheckbox.nativeElement.checked = true)
+      : (this.selectAllCheckbox.nativeElement.checked = false);
+
+    // idea: alternative way to check whether all the checkboxes are checked or not
+    // let allChecked = true;
+    // this.checkboxList.forEach((checkbox) => {
+    //   if (!checkbox.nativeElement.checked) {
+    //     allChecked = false;
+    //   }
+    // });
+
+    // idea: alternative way to make selectAll checkbox checked or unchecked
+    // if (
+    //   this.checkboxList.filter((checkbox) => checkbox.nativeElement.checked)
+    //     .length === this.checkboxList.length
+    // ) {
+    //   this.selectAllCheckbox.nativeElement.checked = true;
+    // } else {
+    //   this.selectAllCheckbox.nativeElement.checked = false;
+    // }
+
     if (selected) {
       this.selectedRows = [...this.selectedRows, value];
     } else {
@@ -273,7 +310,10 @@ export class TableContainerComponent implements OnInit {
     }
 
     this.dataForPrint = [];
-    if (this.selectedRows.length !== 0) {
+
+    if (this.selectedRows.length === 0) {
+      this.dataForPrint = [];
+    } else {
       for (let r = 0; r < this.selectedRows.length; r++) {
         let obj: any = {};
         for (let c = 0; c < columns.length; c++) {
@@ -281,12 +321,6 @@ export class TableContainerComponent implements OnInit {
         }
         this.dataForPrint.push(obj);
       }
-    }
-
-    if (this.selectedRows.length === 0) {
-      this.dataForPrint = [];
-      let selectAll = document.getElementById('select-all') as HTMLInputElement;
-      selectAll.checked = false;
     }
 
     console.log(this.dataForPrint);
@@ -298,10 +332,10 @@ export class TableContainerComponent implements OnInit {
     console.log(selected);
 
     // step 2: if allSelected is true, then select all the rows
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let checkboxes = this.checkboxList;
 
     checkboxes.forEach((checkbox: any) => {
-      selected ? (checkbox.checked = true) : (checkbox.checked = false);
+      checkbox.nativeElement.checked = selected;
     });
 
     let columns = tableData.columns;
