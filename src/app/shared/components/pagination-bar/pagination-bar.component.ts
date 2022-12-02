@@ -182,7 +182,7 @@ export class PaginationBarComponent implements OnInit {
   // };
 
   setPageSize(event: Event) {
-    console.log(this.pager.currentPage);
+    // console.log(this.pager.currentPage);
 
     let pageSize = parseInt((event.target as HTMLInputElement).value);
     this.pageSize = pageSize;
@@ -194,15 +194,9 @@ export class PaginationBarComponent implements OnInit {
     }
   }
 
-  // setArrOfCurrentBtn() {
-  //   let arr = [];
-  //   for (let i = this.pager.startPage; i <= this.pager.endPage; i++) {
-  //     arr.push(i);
-  //   }
-  //   return arr;
-  // }
-
   ngAfterViewInit() {
-    this.pageSizeDropdown.nativeElement.value = this.pageSize.toString();
+    if (this.showPageSizeDropdown) {
+      this.pageSizeDropdown.nativeElement.value = this.pageSize.toString();
+    }
   }
 }

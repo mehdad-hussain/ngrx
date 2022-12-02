@@ -20,25 +20,27 @@
   <!-- section: hidden in small screen, visible in > 640px -->
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
     <!-- section: page status bar -->
-    <div class="flex justify-between">
+    <div class="flex items-center justify-between space-x-4">
       <p class="text-sm text-gray-700 lgM:text-xs">
         Showing <span class="font-medium">{{ pager.startIndex + 1 }}</span> to
         <span class="font-medium">{{ pager.endIndex + 1 }}</span> of
         <span class="font-medium">{{ pager.totalItems }}</span> results
       </p>
       <!-- section: page size dropdown -->
-      <label for="page-size" class="sr-only">Page size</label>
-      <select
-        #pageSizeDropdown
-        id="page-size"
-        name="page-size"
-        class="block w-full py-2 pl-3 pr-4 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        (change)="setPageSize($event)"
-      >
-        <option *ngFor="let size of pageSizes" [value]="size">
-          {{ size }} per page
-        </option>
-      </select>
+      <ng-container *ngIf="showPageSizeDropdown">
+        <label for="page-size" class="sr-only">Page size</label>
+        <select
+          #pageSizeDropdown
+          id="page-size"
+          name="page-size"
+          class="block py-2 pl-3 pr-4 text-base border-gray-300 rounded-md min-w-min focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          (change)="setPageSize($event)"
+        >
+          <option *ngFor="let size of pageSizes" [value]="size">
+            {{ size }} per page
+          </option>
+        </select>
+      </ng-container>
     </div>
 
     <!-- section: pagination bar -->

@@ -75,6 +75,7 @@ export class TableContainerComponent implements OnInit {
   // section: checkbox related variables
   selectedRows: any[] = [];
   dataForPrint: any[] = [];
+  allChecked: boolean = false;
 
   // section: font awesome icons
   faArrowUpWideShort = faArrowUpWideShort;
@@ -146,6 +147,9 @@ export class TableContainerComponent implements OnInit {
         this.sortedRows = [...rectifiedRows].sort(fn);
         // this.sortedRows = res;
       }
+
+      // idea: to reset all checkbox selection when pageSize is changed
+      this.selectAllCheckbox.nativeElement.checked = this.allChecked;
     });
 
     // section: creating array of indexes for custom columns
@@ -276,13 +280,11 @@ export class TableContainerComponent implements OnInit {
     // step 2: if all the checkboxes are checked then make selectAll checkbox checked else unchecked
     console.log(this.checkboxList.length);
 
-    let allChecked = Array.from(this.checkboxList).every((checkbox) => {
+    this.allChecked = Array.from(this.checkboxList).every((checkbox) => {
       return checkbox.nativeElement.checked;
     });
 
-    allChecked
-      ? (this.selectAllCheckbox.nativeElement.checked = true)
-      : (this.selectAllCheckbox.nativeElement.checked = false);
+    this.selectAllCheckbox.nativeElement.checked = this.allChecked;
 
     // idea: alternative way to check whether all the checkboxes are checked or not
     // let allChecked = true;
