@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faSave,faPenToSquare, faEye, faTrash, faArrowUpWideShort, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
 
 // prettier-ignore
-import { AppState, EmployeeService, loadedEmployees, loadEmployees, } from '@store';
+import { AppState, employeeDataCount, EmployeeService, loadedEmployees, loadEmployees, loading, } from '@store';
 import { PaginationService, TableService } from '@core';
 import { ColumnType } from 'app/shared/components';
 
@@ -18,9 +18,11 @@ import { ColumnType } from 'app/shared/components';
 })
 export class EmployeeComponent implements OnInit {
   employeeList$ = this.employeeService.entities$;
-  loading$ = this.employeeService.loading$;
+  // loading$ = this.employeeService.loading$;
+  loading$ = this.store.select(loading);
   // payload$ = this.store.select((state) => state.entityCache.Employee?.entities);
   employees$ = this.store.select(loadedEmployees);
+  employeeDataCount$ = this.store.select(employeeDataCount);
   myContext = { $implicit: 'World', localSk: 'Svet' };
 
   error: string | null = '';
@@ -108,9 +110,26 @@ export class EmployeeComponent implements OnInit {
     // });
 
     // this.employeeService.getAll();
-    this.employeeList$.subscribe((res) => {
+
+    this.store.dispatch(
+      loadEmployees({
+        pageSize: 3,
+        lastKey: 0,
+        filter: '',
+        whereObj: {},
+        cols: null,
+        searchVal: '',
+        searchCols: ['FullName', 'ContactNumber'],
+      })
+    );
+
+    this.employees$.subscribe((res) => {
+      console.log('employees', res);
+    });
+
+    this.employees$.subscribe((res) => {
       console.log('res', res);
-      if (res.length) {
+      if (res.length !== 0) {
         // prettier-ignore
         // let columnDef = [ 'EmployeeId', 'FullName', 'Designation', 'ServiceLocation', 'ContactNumber', 'Gender', 'BranchName', 'Permissions'];
         this.columns = [
@@ -131,9 +150,13 @@ export class EmployeeComponent implements OnInit {
       }
     });
 
-    this.employees$.subscribe((res) => {
-      console.log('employees', res);
+    this.employeeDataCount$.subscribe((res) => {
+      console.log('employeeDataCount', res);
     });
+
+    // if () {
+
+    // }
   }
 
   dropdownValueChanged(event: any) {

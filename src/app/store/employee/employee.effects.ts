@@ -15,6 +15,8 @@ export class EmployeeEffects {
     private store: Store<AppState>
   ) {}
 
+  // section: Get all employees
+
   loadEmployees$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadEmployees),
@@ -32,7 +34,10 @@ export class EmployeeEffects {
         ).pipe(
           map((res) =>
             res.Success
-              ? loadEmployeesSuccess({ employees: res.Data })
+              ? loadEmployeesSuccess({
+                  employees: res.Data,
+                  totalCount: res.TotalCount,
+                })
               : loadEmployeesFailed({ error: res.Message })
           ),
           catchError((error) => of(loadEmployeesFailed({ error })))

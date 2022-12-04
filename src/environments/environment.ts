@@ -7,8 +7,8 @@ export const environment = {
 
   // api: 'https://jsonplaceholder.typicode.com',
   // api: 'https://masalabazaar.azurewebsites.net',
-  api: 'https://mbpos-api.eurofoods-bd.com',
-  // api: 'http://localhost:3000',
+  // api: 'https://mbpos-api.eurofoods-bd.com',
+  api: 'http://localhost:3000',
   ENCRYPT_SECRET: 'f0a38d2ef813a209',
 };
 

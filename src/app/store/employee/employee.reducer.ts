@@ -11,6 +11,7 @@ export interface EmployeeState {
   employees: IEmployee[];
   loading: boolean;
   error: string;
+  totalCount: number;
   status: 'pending' | 'loading' | 'failed' | 'success';
 }
 
@@ -18,6 +19,7 @@ export const initialEmployeeState: EmployeeState = {
   employees: [],
   loading: false,
   error: '',
+  totalCount: 0,
   status: 'pending',
 };
 
@@ -31,11 +33,12 @@ export const employeeReducer = createReducer(
     };
   }),
 
-  on(loadEmployeesSuccess, (state, { employees }) => {
+  on(loadEmployeesSuccess, (state, { employees, totalCount }) => {
     return {
       employees: employees,
       loading: false,
       error: '',
+      totalCount: totalCount,
       status: 'success',
     };
   }),
@@ -45,6 +48,7 @@ export const employeeReducer = createReducer(
       employees: [],
       loading: false,
       error: error,
+      totalCount: 0,
       status: 'failed',
     };
   })

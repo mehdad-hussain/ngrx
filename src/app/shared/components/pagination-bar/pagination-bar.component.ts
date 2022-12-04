@@ -43,7 +43,7 @@ export class PaginationBarComponent implements OnInit {
   faChevronRight = faChevronRight;
 
   constructor(
-    private table: TableService,
+    private tableService: TableService,
     private pagination: PaginationService
   ) {}
 
@@ -172,7 +172,7 @@ export class PaginationBarComponent implements OnInit {
     // call change page function in parent component
     // this.onChangePage(pageOfItems);
     // return { pager, pageOfItems };
-    this.table.changeTableRows(this.paginationId, pageOfItems);
+    this.tableService.changeTableRows(this.paginationId, pageOfItems);
   }
 
   // // section: function for parent component
@@ -199,4 +199,6 @@ export class PaginationBarComponent implements OnInit {
       this.pageSizeDropdown.nativeElement.value = this.pageSize.toString();
     }
   }
+
+  loadNextDataStream() {}
 }
